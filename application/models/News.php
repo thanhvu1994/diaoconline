@@ -17,14 +17,15 @@ class News extends CI_Model {
     	return $rules;
     }
 
-	public function get_model($conditions = [])
+	public function get_model($conditions = [], $limit = '')
 	{
 		if (!empty($conditions)) {
 			$query = $this->db->get_where('news', $conditions);
-
         	return $query->row(0,'News');
 		} else {
-			$query = $this->db->query("SELECT * FROM ci_news ORDER BY created_date desc");
+            $str_limit = (empty($limit)) ? '' : ' LIMIT '.$limit;
+
+			$query = $this->db->query("SELECT * FROM ci_news ORDER BY created_date desc".$str_limit);
 			return $query->result('News');
 		}
 	}

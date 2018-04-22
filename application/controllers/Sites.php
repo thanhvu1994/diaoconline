@@ -22,13 +22,17 @@ class Sites extends Front_Controller {
 
     public function actionLevelOne($slug) {
         $this->load->model('genSlug');
-        $model_slug = $this->genSlug->get_model(['slug' => $slug]);
-        if (count($model_slug) > 0) {
-            if ($model_slug->type == 'news') {
-                $this->detailNew($slug);
-            }
+        if ($slug == 'tin-tuc') {
+            $this->news($slug);
         } else {
-            redirect('sites', 'refresh');
+            $model_slug = $this->genSlug->get_model(['slug' => $slug]);
+            if (count($model_slug) > 0) {
+                if ($model_slug->type == 'news') {
+                    $this->detailNew($slug);
+                }
+            } else {
+                redirect('sites', 'refresh');
+            }
         }
     }
 
