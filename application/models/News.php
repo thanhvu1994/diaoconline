@@ -17,14 +17,15 @@ class News extends CI_Model {
     	return $rules;
     }
 
-	public function get_model($conditions = [])
+	public function get_model($conditions = [], $limit = '')
 	{
 		if (!empty($conditions)) {
 			$query = $this->db->get_where('news', $conditions);
-
         	return $query->row(0,'News');
 		} else {
-			$query = $this->db->query("SELECT * FROM ci_news ORDER BY created_date desc");
+            $str_limit = (empty($limit)) ? '' : ' LIMIT '.$limit;
+
+			$query = $this->db->query("SELECT * FROM ci_news ORDER BY created_date desc".$str_limit);
 			return $query->result('News');
 		}
 	}
@@ -196,17 +197,17 @@ class News extends CI_Model {
         return base_url().$this->slug.'.html';
     }
 
-    public function getNewsInMenu($cat_id) {
+    public function getNewsInMenu($cat_id, $limit = 10) {
         $this->load->model('categories');
         $arr_cat = [$cat_id];
         $this->categories->getArrayChild($cat_id, $arr_cat);
         if ($cat_id == 0) {
-            $query = $this->db->query("SELECT * FROM ci_news ORDER BY created_date desc LIMIT 10");
+            $query = $this->db->query("SELECT * FROM ci_news ORDER BY created_date desc LIMIT ".$limit);
         } else {
             if (empty($arr_cat)) {
                 $arr_cat = [0];
             }
-            $query = $this->db->query("SELECT * FROM ci_news WHERE category_id IN (".implode(',', $arr_cat).") ORDER BY created_date desc LIMIT 10");
+            $query = $this->db->query("SELECT * FROM ci_news WHERE category_id IN (".implode(',', $arr_cat).") ORDER BY created_date desc LIMIT ".$limit);
         }
         $news = $query->result('News');
 

@@ -30,30 +30,33 @@
     	Random_Banner2();
     </script>
 
-    <div id="faq_list" class="margin_bottom">
-        <div class="headline_title_1 rounded_style_5 rounded_box">
-            <div class="content">
-                <ul class="headline_tab">
-                    <li class="actived"><span class="L"></span><a href="javascript:void(0)">Tỉnh thành</a><span class="R"></span></li>
-                    <!-- <li><a href="kham-pha/phong-thuy-c9.html"><span>Phong Thủy</span></a></li> -->
-                </ul>
+    <?php if ($this->router->fetch_class() == 'sites' && $this->router->fetch_method() == 'index'): ?>
+        <div id="faq_list" class="margin_bottom">
+            <div class="headline_title_1 rounded_style_5 rounded_box">
+                <div class="content">
+                    <ul class="headline_tab">
+                        <li class="actived"><span class="L"></span><a href="javascript:void(0)">Tỉnh thành</a><span class="R"></span></li>
+                        <!-- <li><a href="kham-pha/phong-thuy-c9.html"><span>Phong Thủy</span></a></li> -->
+                    </ul>
+                </div>
+            </div>
+            <div class="rounded_style_2 rounded_box">
+                <div class="content">
+                    <?php $provinces = $this->provinces->getProvincesFE(); 
+                        if (count($provinces) > 0): ?>
+                            <ul class="listing_1">
+                                <?php foreach ($provinces as $province): ?>
+                                    <li >
+                                        <span class="arrow"></span>
+                                        <a href="<?php echo $province->getUrl() ?>"><?php echo $province->province_name ?></a>
+                                    </li>
+                                <?php endforeach ?>
+                            </ul>
+                    <?php endif ?>
+                    <p>&nbsp;</p>
+                </div>
             </div>
         </div>
-        <div class="rounded_style_2 rounded_box">
-            <div class="content">
-                <?php $provinces = $this->provinces->getProvincesFE(); 
-                    if (count($provinces) > 0): ?>
-                        <ul class="listing_1">
-                            <?php foreach ($provinces as $province): ?>
-                                <li >
-                                    <span class="arrow"></span>
-                                    <a href="<?php echo $province->getUrl() ?>"><?php echo $province->province_name ?></a>
-                                </li>
-                            <?php endforeach ?>
-                        </ul>
-                <?php endif ?>
-                <p>&nbsp;</p>
-            </div>
-        </div>
-    </div>
+    <?php endif ?>
+    
 </div>

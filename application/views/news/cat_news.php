@@ -1,4 +1,4 @@
-<div class="col_460 margin_left margin_bottom">
+<div class="col_650 margin_bottom">
     <div id="news_listing" class="news_form margin_bottom">
         <div class="headline_title_1 rounded_style_5 rounded_box">
             <h2 class="headline"><span>Thị trường địa ốc</span></h2>
