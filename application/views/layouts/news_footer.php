@@ -3,14 +3,21 @@
     if (count($news) > 0) :?>
         <div class="headline_title_1 rounded_style_5 rounded_box">
             <div class="content">
-                <ul class="headline_tab">
-                    <li class="actived"><span class="L"></span><a href="kham-pha/kham-pha-trai-nghiem-c3.html">Kh&#225;m Ph&#225;</a><span class="R"></span></li>
-                    <li><a href="kham-pha/khong-gian-song-c7.html"><span>Kh&#244;ng Gian Sống</span></a></li>
-                    <li><a href="kham-pha/the-gioi-kien-truc-c4.html"><span>Thế Giới Kiến Tr&#250;c</span></a></li>
-                    <li><a href="kham-pha/phong-thuy-c9.html"><span>Phong Thủy</span></a></li>
-                    <li><a href="kham-pha/mach-ban-c6.html"><span>M&#225;ch Bạn</span></a></li>
-                    <li><a href="kham-pha/thuong-hieu-c11.html"><span>Thương Hiệu</span></a></li>
-                </ul>
+                <?php $categories = $this->categories->getCategoryNewFE(2, '0, 1');
+                if (count($categories) > 0): 
+                    foreach ($categories as $category_id => $category): 
+                        if (!empty($category['child'])): 
+                        $count = 0;?>
+                        <ul class="headline_tab">
+                            <?php foreach ($category['child'] as $child_id => $child): 
+                                    if ($count > 3) break; ?>
+                                <li><a href="<?php echo $this->categories->getUrlCustom(['slug_parent' => $category['slug'], 'slug' => $child['slug']]) ?>"><span><?php echo $child['name'] ?></span></a></li>
+                            <?php $count++;
+                            endforeach ?>
+                        </ul>
+                    <?php endif;
+                    endforeach;
+                endif ?>
             </div>
         </div>
         <div class="rounded_style_2 rounded_box">

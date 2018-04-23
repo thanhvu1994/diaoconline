@@ -197,17 +197,17 @@ class News extends CI_Model {
         return base_url().$this->slug.'.html';
     }
 
-    public function getNewsInMenu($cat_id) {
+    public function getNewsInMenu($cat_id, $limit = 10) {
         $this->load->model('categories');
         $arr_cat = [$cat_id];
         $this->categories->getArrayChild($cat_id, $arr_cat);
         if ($cat_id == 0) {
-            $query = $this->db->query("SELECT * FROM ci_news ORDER BY created_date desc LIMIT 10");
+            $query = $this->db->query("SELECT * FROM ci_news ORDER BY created_date desc LIMIT ".$limit);
         } else {
             if (empty($arr_cat)) {
                 $arr_cat = [0];
             }
-            $query = $this->db->query("SELECT * FROM ci_news WHERE category_id IN (".implode(',', $arr_cat).") ORDER BY created_date desc LIMIT 10");
+            $query = $this->db->query("SELECT * FROM ci_news WHERE category_id IN (".implode(',', $arr_cat).") ORDER BY created_date desc LIMIT ".$limit);
         }
         $news = $query->result('News');
 

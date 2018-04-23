@@ -599,9 +599,12 @@ class Categories extends CI_Model {
 		return $this->$field;
     }
 
-    public function getCategoryNewFE($level = 1) {
+    public function getCategoryNewFE($level = 1, $limit = '') {
         $items = [];
-        $query = $this->db->query("SELECT * FROM ci_categories WHERE type_level = ".$level." AND type = 'news' ORDER BY display_order asc");
+
+        $str_limit = empty($limit) ? '' : ' LIMIT '.$limit;
+
+        $query = $this->db->query("SELECT * FROM ci_categories WHERE type_level = ".$level." AND type = 'news' ORDER BY display_order asc".$str_limit);
         $models = $query->result('Categories');
 
         if (count($models)) {
@@ -682,5 +685,17 @@ class Categories extends CI_Model {
         $models = $query->result('Categories');
 
         return $models;
+    }
+
+    public function getSlugParent($id) {
+        $model = $this->get_model(['id' => $id]);
+        if (count($model) > 0) {
+            $parent = $this->get_model(['id' => $model->parent_id]);
+            if (count($parent) > 0) {
+                return $parent->slug;
+            }
+        }
+        
+        return '';
     }
 }

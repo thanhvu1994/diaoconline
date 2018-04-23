@@ -1,4 +1,4 @@
-<div class="col_460 margin_left margin_bottom">
+<div class="col_650 margin_bottom">
     <div id="news_listing" class="news_form margin_bottom">
 		<div class="rounded_style_2 rounded_box">
 		    <div class="unity_bar border_bottom">
