@@ -76,7 +76,6 @@ class Users extends CI_Model {
 
 	public function set_model($data_insert)
 	{
-		$data_insert['full_name'] = $data_insert['last_name'] .' '. $data_insert['first_name'];
 		$data_insert['password_hash'] = md5($data_insert['password']);
 	    $data_insert['created_date'] = gmdate('Y-m-d H:i:s', time()+7*3600);
 	    $data_insert['update_date'] = gmdate('Y-m-d H:i:s', time()+7*3600);

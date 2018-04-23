@@ -55,6 +55,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 // $route['(:any)'] = 'pages/view/$1';
 $route['default_controller'] = 'sites/index';
 $route['admin'] = 'admin/login';
+$route['dang-ky.html'] = 'sites/register';
+$route['dang-nhap.html'] = 'sites/login';
+$route['logout.html'] = 'sites/logout';
+$route['my_account.html'] = 'sites/myAccount';
+
 
 $route['(:any)/(:any).html'] = 'sites/actionLevelTwo/$1/$2';
 $route['(:any)/(:any).html/(:num)'] = 'sites/actionLevelTwo/$1/$2/$3';
