@@ -1,5 +1,5 @@
 <?php $ads = $this->banner->getAdsByLocation(HEADER_ADVERTISEMENT);
-if (count($ads) > 0 && $this->router->fetch_method() != 'register' && $this->router->fetch_method() != 'login') :?>
+if (count($ads) > 0 && !in_array( $this->router->fetch_method(), array('register', 'login', 'myAccount', 'changePassword','forgot'))) :?>
 <div id="position_1" class ='banner_960x75 margin_bottom'>
     <?php foreach ($ads as $ad): ?>
         <div>

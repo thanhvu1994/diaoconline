@@ -316,6 +316,8 @@ class Sites extends Front_Controller {
                 }
                 
                 redirect('sites', 'refresh');
+            }else{
+                $data['error'] = 'Thông tin đăng nhập không hợp lệ.';
             }
         }
         $this->load->view('layouts/index', $data);
@@ -330,22 +332,43 @@ class Sites extends Front_Controller {
         redirect('sites', 'refresh');
     }
 
-    public function myAccount(){
-        if(!isset($this->session->userdata['logged_in_FE'])){
-            redirect('sites', 'refresh');
+    public function forgot() {
+        $data['template'] = 'sites/forgot';
+
+        if (isset($_POST['email'])) {
+            $this->load->library('email');
+            $config['protocol'] = 'sendmail';
+            $config['smtp_host'] = 'smtp.gmail.com';
+            $config['smtp_user'] = 'lucjfer0407@gmail.com';
+            $config['smtp_pass'] = 'cbqltyrncpgreijv';
+            $config['smtp_port'] = '465';
+            $config['smtp_crypto'] = 'ssl';
+            $config['charset'] = 'iso-8859-1';
+            $config['wordwrap'] = TRUE;
+            $this->email->initialize($config);
+
+            $query_user = $this->db->get_where('users', array('email' => $_POST['email'], 'application_id' => FE));
+            $user = $query_user->row('1', 'Users');
+
+            if ($user) {
+                $this->email->from('diaoconline@admin.com', 'DiaOcOnline Admin');
+                $this->email->to($_POST['email']);
+                $this->email->subject('Mật khẩu cho tài khoản tại '.$this->settings->get_param('defaultPageTitle'));
+
+                $body = 'Gửi '.$user->full_name."\n";
+                $body .= 'Chúng tôi đã nhận được yêu cầu gửi lại mật khẩu cho tài khoản '.$user->email."\n";
+                $body .= 'Đây là mật khẩu hiện tại của bạn: '.$user->password."\n";
+                $body .= 'Xin cảm ơn!'."\n";
+                $body .= 'DiaOcOnline Admin'."\n";
+                $this->email->message($body);
+
+                $this->email->send();
+
+                $data['msg'] = 'Mật khẩu đã được gửi về mail đăng ký, vui lòng kiểm tra mail!';
+            }else{
+                $data['error'] = 'Tài khoản không tồn tại';
+            }
         }
-        $info_login_fe = $this->session->userdata['logged_in_FE'];
-        $query = $this->db->get_where('users', array('email' => $info_login_fe['email'], 'application_id' => FE));
-        $user = $query->row('1', 'Users');
-        if (count($user) > 0) {
-            $data['title'] = 'Tài Khoản :'.$user->full_name;
-            $data['description'] = 'Tài Khoản :'.$user->full_name;
-            $data['user_id'] = $user->id;
-        } else {
-            $data['user_id'] = 0;
-        }
-        $this->load->model('billingAddress');
-        $data['template'] = 'sites/account';
         $this->load->view('layouts/index', $data);
     }
 }
