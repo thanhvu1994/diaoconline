@@ -1,0 +1,70 @@
+﻿
+
+@media print {
+    @page {
+        margin: 0;
+        /*margin: 1cm 1cm;*/
+    }
+
+    /* -- Typography -- */
+    body {
+        width: 100%;
+        border: 0;
+        margin: 0 5%;
+        padding: 0;
+        float: none !important;
+    }
+
+    p, table, ul, ol, dl, blockquote, pre, code, form {
+        margin: 0 0 1em;
+    }
+
+    h1, h2, h3, h4, h5 {
+        color: #0091b2 !important;
+        padding-left: 0 !important;
+        float: none !important;
+        border: none !important;
+    }
+
+    .cl_left, .galleria-image {
+        width: 900px !important;
+    }
+
+    .box5 table, #description {
+        width: 880px !important;
+        text-align:justify;
+    }
+
+    /* -- Hide screen specific elements -- */
+    .wr_top, .border_top, .wr_header, .box_search, .navigate, #boxProductSaved, #SiteLeft, #SiteRight, #maps, .cl_right,
+    .tienich, .box_taps .titlebox, #maps, #myGallery, .product_other, .slide_show, .navi_footer, .footer, .bottom_footer, .other_article, .box_comment {
+        display: none !important;
+    }
+    .wrapper
+    {
+        border:none;
+        box-shadow:none;
+    }
+
+    #imgPrint {
+        clear: both;
+        display: block !important;
+        text-align: center;
+    }
+}
+
+#imgPrint {
+    display: none;
+}
+
+    #imgPrint ul, #imgPrint ul li {
+        margin: 0;
+        padding: 0;
+        text-align: center;
+    }
+
+        #imgPrint ul li img {
+            margin: 15px auto 0;
+            max-width: 660px;
+            max-height: 495px;
+        }

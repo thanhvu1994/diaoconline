@@ -1688,14 +1688,12 @@ div.rowElem{
 .col_170,
 .col_180,
 .col_240,
-.col_280,
 .col_300,
 .col_400,
 .col_410,
 .col_460,
 .col_600,
 .col_650,
-.col_670,
 .col_770,
 .col_780,
 .col_790,
@@ -1713,9 +1711,6 @@ div.rowElem{
 }
 .col_240 {
 	width:240px;
-}
-.col_280 {
-	width:280px;
 }
 .col_300 {
 	width:300px;
@@ -1735,9 +1730,6 @@ div.rowElem{
 }
 .col_650 {
 	width:650px;
-}
-.col_670 {
-	width:670px;
 }
 
 .col_770 {

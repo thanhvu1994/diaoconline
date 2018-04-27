@@ -29,6 +29,8 @@ class Sites extends Front_Controller {
             if (count($model_slug) > 0) {
                 if ($model_slug->type == 'news') {
                     $this->detailNew($slug);
+                } elseif ($model_slug->type == 'bds') {
+                    $this->bdsDetail($slug);
                 }
             } else {
                 redirect('sites', 'refresh');
@@ -156,85 +158,24 @@ class Sites extends Front_Controller {
 
     ////////////// End page news /////////////
 
-    public function newProducts(){
-        $data['title'] = 'Sản Phẩm Mới';
-        $data['description'] = 'Sản Phẩm Mới';
+    ////////////// Page bds /////////////
+    private function bds($slug) {
+        $data['title'] = 'Trang Chủ';
+        $data['description'] = 'Trang Chủ';
 
-        $data['treeCategory'] = $this->categories->getCategoryFE();
-
-        $config['base_url'] = base_url('san-pham-moi.html');
-        $config['total_rows'] = $this->products->countNewProducts();
-        $config['per_page'] = 40;
-        $config['uri_segment'] = 2;
-        $config['use_page_numbers'] = TRUE;
-
-        $config["prev_link"] = "Back";
-        $config["prev_tag_open"] = "<li>";
-        $config["prev_tag_close"] = "<li>";
-
-        $config["next_link"] = 'Next';
-        $config["next_tag_open"] = "<li>";
-        $config["next_tag_open"] = "<li>";
-
-        $config["num_tag_open"] = "<li>";
-        $config["num_tag_close"] = "</li>";
-
-        $config["cur_tag_open"] = "<li class='current'>";
-        $config["cur_tag_close"] = "</li>";
-
-        if (count($_GET) > 0) $config['suffix'] = '?' . http_build_query($_GET, '', "&");
-        if (count($_GET) > 0) $config['first_url'] = $config['base_url'].'?'.http_build_query($_GET);
-
-        $this->pagination->initialize($config);
-
-        $page = ($this->uri->segment(2)) ? $this->uri->segment(2) : 1;
-        $data['products'] = $this->products->getNewProducts($config["per_page"], ($page-1)*$config["per_page"]);
-        $data['countProducts'] = $config['total_rows'];
-        $data["links"] = $this->pagination->create_links();
-
-        $data['template'] = 'sites/newProducts';
+        $data['template'] = 'bds/index';
 
         $this->load->view('layouts/index', $data);
     }
 
-    public function featureProducts(){
-        $data['title'] = 'Sản Phẩm Tiêu Biểu';
-        $data['description'] = 'Sản Phẩm Tiêu Biểu';
+    private function bdsDetail($slug) {
+        $data['title'] = 'Trang Chủ';
+        $data['description'] = 'Trang Chủ';
 
-        $data['treeCategory'] = $this->categories->getCategoryFE();
-
-        $config['base_url'] = base_url('san-pham-hot.html');
-        $config['total_rows'] = $this->products->countFeatureProducts();
-        $config['per_page'] = 40;
-        $config['uri_segment'] = 2;
-        $config['use_page_numbers'] = TRUE;
-
-        $config["prev_link"] = "Back";
-        $config["prev_tag_open"] = "<li>";
-        $config["prev_tag_close"] = "<li>";
-
-        $config["next_link"] = 'Next';
-        $config["next_tag_open"] = "<li>";
-        $config["next_tag_open"] = "<li>";
-
-        $config["num_tag_open"] = "<li>";
-        $config["num_tag_close"] = "</li>";
-
-        $config["cur_tag_open"] = "<li class='current'>";
-        $config["cur_tag_close"] = "</li>";
-
-        if (count($_GET) > 0) $config['suffix'] = '?' . http_build_query($_GET, '', "&");
-        if (count($_GET) > 0) $config['first_url'] = $config['base_url'].'?'.http_build_query($_GET);
-
-        $this->pagination->initialize($config);
-
-        $page = ($this->uri->segment(2)) ? $this->uri->segment(2) : 1;
-        $data['products'] = $this->products->getFeatureProducts($config["per_page"], ($page-1)*$config["per_page"]);
-        $data['countProducts'] = $config['total_rows'];
-        $data["links"] = $this->pagination->create_links();
-
-        $data['template'] = 'sites/featureProducts';
-
+        $data['template'] = 'bds/detail';
+        $bds = $this->bds->get_model(['slug' => $slug]);
+        $data['bds'] = $bds;
         $this->load->view('layouts/index', $data);
     }
+    ////////////// End page bds /////////////
 }

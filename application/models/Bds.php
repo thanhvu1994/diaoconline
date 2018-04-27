@@ -98,13 +98,68 @@ class Bds extends CI_Model {
     	return '';
     }
 
+    public function getPhapLy() {
+        $this->load->model('phapLy');
+        if ($this->phap_ly_id) {
+            $model = $this->phapLy->get_model(['id' => $this->phap_ly_id]);
+
+            if ($model) {
+                return $model->name;
+            }
+        }
+
+        return '';
+    }
+
+    public function getDirection() {
+        $this->load->model('direction');
+        if ($this->direction_id) {
+            $model = $this->direction->get_model(['id' => $this->direction_id]);
+
+            if ($model) {
+                return $model->name;
+            }
+        }
+
+        return '';
+    }
+
+    public function getFrontArea() {
+        $this->load->model('frontArea');
+        if ($this->direction_id) {
+            $model = $this->frontArea->get_model(['id' => $this->front_area_id]);
+
+            if ($model) {
+                return $model->name;
+            }
+        }
+
+        return '';
+    }
+
+    public function getUtility() {
+        $this->load->model('utilities');
+
+        $utilities = [];
+        if (!empty($this->utility_id)) {
+            $arr_id = json_decode($this->utility_id);
+
+            if (is_array($arr_id) && !empty($arr_id)) {
+                $query = $this->db->query("SELECT * FROM ci_utilities WHERE id IN (".implode(',', $arr_id).") ORDER BY name asc");
+                $utilities = $query->result('Utilities');
+            }
+        }
+
+        return $utilities;
+    }
+
     public function getBdsMenu($limit = 13) {
     	$query = $this->db->query("SELECT * FROM ci_bds ORDER BY created_date desc LIMIT ".$limit);
 		return $query->result('Bds');
     }
 
     public function getUrl() {
-    	return '';
+    	return base_url($this->slug.'.html');
     }
 
     public function getFirstImage(){
@@ -136,5 +191,34 @@ class Bds extends CI_Model {
     public function getBdsFeatured() {
         $query = $this->db->query("SELECT * FROM ci_bds WHERE is_featured = 1 ORDER BY created_date desc");
         return $query->result('Bds');
+    }
+
+    public function getImages(){
+        $query = $this->db->query("SELECT * FROM ci_product_images WHERE product_id = '".$this->id."'");
+        $images = $query->result('ProductImages');
+
+        return $images;
+    }
+
+    public function getYardArea() {
+        $result = $this->horizontal_yard_area .'x'. $this->vertical_yard_area;
+        if (!empty($this->horizontal_yard_area_after)) {
+            $result .= 'x'.$this->horizontal_yard_area_after;
+        }
+
+        return $result;
+    }
+
+    public function getContructionArea() {
+        $result = $this->horizonta_contruction_area .'x'. $this->vertica_contruction_area;
+        if (!empty($this->horizonta_contruction_area_after)) {
+            $result .= 'x'.$this->horizonta_contruction_area_after;
+        }
+
+        return $result;
+    }
+
+    public function getPrice() {
+        return $this->price;
     }
 }
