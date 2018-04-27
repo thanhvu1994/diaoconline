@@ -18,6 +18,7 @@ class Sites extends Front_Controller {
         $this->load->model('provinces');
         $this->load->library('pagination');
         $this->load->database();
+        $this->load->helper('file');
     }
 
     public function actionLevelOne($slug) {
@@ -178,4 +179,137 @@ class Sites extends Front_Controller {
         $this->load->view('layouts/index', $data);
     }
     ////////////// End page bds /////////////
+
+    public function register(){
+        $data['title'] = 'Đăng Ký';
+        $data['description'] = 'Đăng Ký';
+        $data['template'] = 'sites/register';
+        $string = read_file('./application/models/vietnam_provinces_cities.json');
+
+        if (isset($_POST['Users'])) {
+            $data_insert = $_POST['Users'];
+            $email = $data_insert['email'];
+            $query = $this->db->get_where('users', array('email' => $email, 'application_id' => FE));
+            $users = $query->row('1', 'Users');
+            if (count($users) > 0) {
+                $data['error_user_exists'] = 'An account using this email address has already been registered. Please enter a valid password or request a new one.';
+            } else {
+                if($_POST['Users']['password'] != $_POST['Users']['confirm_password']){
+                    $data['error_password_not_match'] = 'Password and Password Confirm not Matched!';
+                }else{
+                    unset($data_insert['confirm_password']);
+                    unset($data_insert['birth_day']);
+                    unset($data_insert['birth_month']);
+                    unset($data_insert['birth_year']);
+                    if (isset($_POST['Users']['birth_day']) && $_POST['Users']['birth_month'] && $_POST['Users']['birth_year']) {
+                        $birth_date = $_POST['Users']['birth_year'].'-'.$_POST['Users']['birth_month'].'-'.$_POST['Users']['birth_day'];
+                        $data_insert['birth_date'] = date_format(date_create($birth_date), 'Y-m-d');
+                    }
+                    $this->users->set_model($data_insert);
+                    redirect('sites/login', 'refresh');
+                }
+            }
+        }
+        $this->load->view('layouts/index', $data);
+    }
+
+    public function getDistricts(){
+        $city = $_POST['city'];
+
+        $string = read_file('./application/models/vietnam_provinces_cities.json');
+        $cities = json_decode($string, true);
+
+        $result = '<option value="">Quận/Huyện</option>';
+
+        if(isset($cities[$city]['cities']) && !empty($cities[$city]['cities'])){
+            foreach($cities[$city]['cities'] as $value => $district){
+                $result .= '<option value="'.$value.'">'.$district.'</option>';
+            }
+        }
+
+        echo $result;
+    }
+
+    public function login() {
+        $data['title'] = 'Đăng Nhập';
+        $data['description'] = 'Đăng Nhập';
+        $data['template'] = 'sites/login';
+
+        if(isset($this->session->userdata['logged_in_FE'])){
+            redirect('sites', 'refresh');
+        }
+
+        if (isset($_POST['Users'])) {
+            $query = $this->db->get_where('users', array('email' => $_POST['Users']['email'], 'password_hash' => md5($_POST['Users']['password'])));
+            $user = $query->row('1', 'Users');
+
+            if (count($user) > 0) {
+                $session_data = array(
+                    'full_name' => $user->full_name,
+                    'email' => $user->email,
+                );
+                // Add user data in session
+                $this->session->set_userdata('logged_in_FE', $session_data);
+
+                $remember = $_POST['Users']['remember_me'];
+                if($remember){
+                    $this->session->set_userdata('remember_me', true);
+                }
+                
+                redirect('sites', 'refresh');
+            }else{
+                $data['error'] = 'Thông tin đăng nhập không hợp lệ.';
+            }
+        }
+        $this->load->view('layouts/index', $data);
+    }
+
+    public function logout() {
+        // Removing session data
+        $sess_array = [];
+        if(isset($this->session->userdata['logged_in_FE'])){
+            $this->session->unset_userdata('logged_in_FE', $sess_array);
+        }
+        redirect('sites', 'refresh');
+    }
+
+    public function forgot() {
+        $data['template'] = 'sites/forgot';
+
+        if (isset($_POST['email'])) {
+            $this->load->library('email');
+            $config['protocol'] = 'sendmail';
+            $config['smtp_host'] = 'smtp.gmail.com';
+            $config['smtp_user'] = 'lucjfer0407@gmail.com';
+            $config['smtp_pass'] = 'cbqltyrncpgreijv';
+            $config['smtp_port'] = '465';
+            $config['smtp_crypto'] = 'ssl';
+            $config['charset'] = 'iso-8859-1';
+            $config['wordwrap'] = TRUE;
+            $this->email->initialize($config);
+
+            $query_user = $this->db->get_where('users', array('email' => $_POST['email'], 'application_id' => FE));
+            $user = $query_user->row('1', 'Users');
+
+            if ($user) {
+                $this->email->from('diaoconline@admin.com', 'DiaOcOnline Admin');
+                $this->email->to($_POST['email']);
+                $this->email->subject('Mật khẩu cho tài khoản tại '.$this->settings->get_param('defaultPageTitle'));
+
+                $body = 'Gửi '.$user->full_name."\n";
+                $body .= 'Chúng tôi đã nhận được yêu cầu gửi lại mật khẩu cho tài khoản '.$user->email."\n";
+                $body .= 'Đây là mật khẩu hiện tại của bạn: '.$user->password."\n";
+                $body .= 'Xin cảm ơn!'."\n";
+                $body .= 'DiaOcOnline Admin'."\n";
+                $this->email->message($body);
+
+                $this->email->send();
+
+                $data['msg'] = 'Mật khẩu đã được gửi về mail đăng ký, vui lòng kiểm tra mail!';
+            }else{
+                $data['error'] = 'Tài khoản không tồn tại';
+            }
+        }
+        $this->load->view('layouts/index', $data);
+    }
 }

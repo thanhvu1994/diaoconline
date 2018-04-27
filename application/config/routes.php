@@ -56,6 +56,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'sites/index';
 $route['admin'] = 'admin/login';
 
+//Users
+$route['dang-ky.html'] = 'sites/register';
+$route['dang-nhap.html'] = 'sites/login';
+$route['dang-xuat.html'] = 'sites/logout';
+$route['tai-khoan-cua-toi.html'] = 'members/myAccount';
+$route['doi-mat-khau.html'] = 'members/changePassword';
+$route['quen-mat-khau.html'] = 'sites/forgot';
+$route['dang-tai-san-moi.html'] = 'members/newProperty';
+
+
 $route['(:any)/(:any).html'] = 'sites/actionLevelTwo/$1/$2';
 $route['(:any)/(:any).html/(:num)'] = 'sites/actionLevelTwo/$1/$2/$3';
 $route['(:any).html'] = 'sites/actionLevelOne/$1';

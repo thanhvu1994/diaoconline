@@ -114,18 +114,26 @@
             </div>
             <div class="right_cn">
             </div>
-            <div class="content default">
-                <ul>
-                    <li class="login">
-                        <span class="login_ico ico_24 ico_login_24"></span>
-                        <a href="dang-nhap.html">Đăng nhập</a>
-                    </li>
-                    <li class="register">
-                        <span class="register_ico ico_24 ico_register_24"></span>
-                        <a href="dang-ky.html" class="register">Đăng ký</a>
-                    </li>
-                </ul>
-            </div>
+            <?php if(isset($this->session->userdata['logged_in_FE'])): ?>
+                <div class="login">
+                    <a href="<?php echo base_url('tai-khoan-cua-toi.html'); ?>" class="signin"><span class="ico_16 ico_login_16">
+                        </span>Về trang cá nhân</a><div class="dropdown">
+                        <a href="<?php echo base_url('dang-xuat.html'); ?>" title="Thoát">setting</a></div>
+                </div>
+            <?php else: ?>
+                <div class="content default">
+                    <ul>
+                        <li class="login">
+                            <span class="login_ico ico_24 ico_login_24"></span>
+                            <a href="<?php echo base_url('dang-nhap.html'); ?>">Đăng nhập</a>
+                        </li>
+                        <li class="register">
+                            <span class="register_ico ico_24 ico_register_24"></span>
+                            <a href="<?php echo base_url('dang-ky.html'); ?>" class="register">Đăng ký</a>
+                        </li>
+                    </ul>
+                </div>
+            <?php endif; ?>
         </div>
         <div class="post_propertise">
             <a href="dang-nhap3a45.html">ĐĂNG TÀI SẢN CỦA BẠN</a>
