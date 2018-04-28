@@ -49,18 +49,11 @@
                                 <a href="<?php echo base_url('dang-tai-san-moi.html'); ?>">Đăng tài sản mới</a>
                             </li>
                             <li>
+                                <a href="<?php echo base_url('tai-san-da-dang.html'); ?>">Tài sản đã đăng</a>
+                            </li>
+                            <li>
                                 <a href="<?php echo base_url('tai-san-da-luu.html'); ?>">Tài sản đã lưu</a>
                             </li>
-                        </ul>
-                    </div>
-                    <div class="panel_block">
-                        <h2>
-                            <span class="ico_16 ico_panel_5"></span>
-                            <a href="javascript:void(0)">QUẢN LÝ TIN LƯU</a></h2>
-                        <ul>
-
-                            <li>
-                                <a href="<?php echo base_url('tin-tuc-da-luu.html'); ?>">Tin tức đã lưu</a></li>
                         </ul>
                     </div>
                 </div>

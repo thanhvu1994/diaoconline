@@ -64,6 +64,8 @@ $route['tai-khoan-cua-toi.html'] = 'members/myAccount';
 $route['doi-mat-khau.html'] = 'members/changePassword';
 $route['quen-mat-khau.html'] = 'sites/forgot';
 $route['dang-tai-san-moi.html'] = 'members/newProperty';
+$route['tai-san-da-dang.html'] = 'members/postedProperty';
+$route['tai-san-da-luu.html'] = 'members/savedProperty';
 
 
 $route['(:any)/(:any).html'] = 'sites/actionLevelTwo/$1/$2';

@@ -116,4 +116,9 @@ class Streets extends CI_Model {
 		$models = $query->result('Wards');
 		return $models;
 	}
+
+    public function getStreetsOfWard($ward_id) {
+        $query = $this->db->query("SELECT * FROM ci_streets WHERE ward_id = '$ward_id' ORDER BY created_date desc");
+        return $query->result_array('Streets');
+    }
 }

@@ -106,4 +106,9 @@ class District extends CI_Model {
 		$models = $query->result('Provinces');
 		return $models;
 	}
+
+    public function getDistrictOfProvince($province_id) {
+        $query = $this->db->query("SELECT * FROM ci_district WHERE province_id = '$province_id' ORDER BY created_date desc");
+        return $query->result_array('District');
+    }
 }

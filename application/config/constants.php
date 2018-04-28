@@ -22,6 +22,10 @@ defined('ALL')  OR define('ALL', 1);
 defined('METERS')  OR define('METERS', 2);
 defined('MONTH')  OR define('MONTH', 3);
 
+defined('STATUS_BDS_DRAFT')  OR define('STATUS_BDS_DRAFT', 0);
+defined('STATUS_BDS_PENDING')  OR define('STATUS_BDS_PENDING', 1);
+defined('STATUS_BDS_APPROVED')  OR define('STATUS_BDS_APPROVED', 2);
+
 defined('HEADER_ADVERTISEMENT')  OR define('HEADER_ADVERTISEMENT', 0);
 defined('SIDEBAR_ADVERTISEMENT')  OR define('SIDEBAR_ADVERTISEMENT', 1);
 defined('HEADER_NEWS')  OR define('HEADER_NEWS', 0);

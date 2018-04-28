@@ -115,4 +115,9 @@ class Wards extends CI_Model {
 		$models = $query->result('District');
 		return $models;
 	}
+
+    public function getWardsOfDistrict($district_id) {
+        $query = $this->db->query("SELECT * FROM ci_wards WHERE district_id = '$district_id' ORDER BY created_date desc");
+        return $query->result_array('Wards');
+    }
 }

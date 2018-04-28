@@ -1,0 +1,2 @@
+ALTER TABLE `diaoconline`.`ci_bds`
+CHANGE COLUMN `utility_id` `utilities` text NOT NULL AFTER `direction_id`;

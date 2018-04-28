@@ -9,6 +9,12 @@ class Bds extends CI_Model {
         TYPE_RENT => 'Cần thuê',
     ];
 
+	public $arr_currency = [
+	    'vnd' => 'VND',
+	    'sjc' => 'SJC',
+	    'usd' => 'USD'
+    ];
+
     public $unit = [
     	ALL => 'Tổng diện tích',
     	METERS => 'm2',
@@ -220,5 +226,13 @@ class Bds extends CI_Model {
 
     public function getPrice() {
         return $this->price;
+    }
+
+    public function countPostedPropertyOfUser($user_id)
+    {
+        return $this->db
+            ->where('user_id', $user_id)
+            ->where('status', STATUS_BDS_PENDING)
+            ->count_all_results('bds');
     }
 }

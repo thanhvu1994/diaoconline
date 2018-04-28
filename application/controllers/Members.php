@@ -15,7 +15,15 @@ class Members extends Front_Controller {
         $this->load->model('projects');
         $this->load->model('news');
         $this->load->model('bds');
+        $this->load->model('realEstateType');
+        $this->load->model('frontArea');
         $this->load->model('provinces');
+        $this->load->model('district');
+        $this->load->model('wards');
+        $this->load->model('streets');
+        $this->load->model('phapLy');
+        $this->load->model('direction');
+        $this->load->model('utilities');
         $this->load->model('settings');
         $this->load->library('pagination');
         $this->load->database();
@@ -115,8 +123,8 @@ class Members extends Front_Controller {
                 }
             }
 
-            $data['title'] = 'Tài Khoản :'.$user->full_name;
-            $data['description'] = 'Tài Khoản :'.$user->full_name;
+            $data['title'] = 'Đổi mật khẩu tài khoản:'.$user->full_name;
+            $data['description'] = 'Đổi mật khẩu tài khoản:'.$user->full_name;
             $data['user'] = $user;
         }else {
             redirect('sites/index', 'refresh');
@@ -126,7 +134,96 @@ class Members extends Front_Controller {
     }
 
     public function newProperty(){
+        if(!isset($this->session->userdata['logged_in_FE'])){
+            redirect('sites', 'refresh');
+        }
+
+        $info_login_fe = $this->session->userdata['logged_in_FE'];
+        $query = $this->db->get_where('users', array('email' => $info_login_fe['email'], 'application_id' => FE));
+        $user = $query->row('1', 'Users');
+        if (count($user) > 0) {
+            if(isset($_POST['bds'])){
+                $data_insert = $_POST['bds'];
+                $data_insert['user_id'] = $user->id;
+                $data_insert['utilities'] = json_encode($data_insert['utilities']);
+
+                $data_insert['title'] = $data_insert['name'];
+                $data_insert['meta_description'] = $data_insert['description'];
+                $this->bds->set_model($data_insert);
+            }
+
+            $data['title'] = 'Đăng tài sản mới';
+            $data['description'] = 'Đăng tài sản mới';
+            $data['user'] = $user;
+        }else {
+            redirect('sites/index', 'refresh');
+        }
+
         $data['template'] = 'members/newProperty';
         $this->load->view('layouts/index', $data);
+    }
+
+    public function postedProperty(){
+        if(!isset($this->session->userdata['logged_in_FE'])){
+            redirect('sites', 'refresh');
+        }
+
+        $info_login_fe = $this->session->userdata['logged_in_FE'];
+        $query = $this->db->get_where('users', array('email' => $info_login_fe['email'], 'application_id' => FE));
+        $user = $query->row('1', 'Users');
+        if (count($user) > 0) {
+            $data['countProperty'] = $this->bds->countPostedPropertyOfUser($user->id);
+
+            $data['title'] = 'Tài sản đã đăng';
+            $data['description'] = 'Tài sản đã đăng';
+            $data['user'] = $user;
+        }else {
+            redirect('sites/index', 'refresh');
+        }
+
+        $data['template'] = 'members/postedProperty';
+        $this->load->view('layouts/index', $data);
+    }
+
+    public function getDistricts(){
+        $city = $_POST['city'];
+
+        $districts = $this->district->getDistrictOfProvince($city);
+
+        $result = '<option value="">Quận/Huyện</option>';
+
+        foreach($districts as $district){
+            $result .= '<option value="'.$district['id'].'">'.$district['district_name'].'</option>';
+        }
+
+        echo $result;
+    }
+
+    public function getWards(){
+        $district = $_POST['district'];
+
+        $wards = $this->wards->getWardsOfDistrict($district);
+
+        $result = '<option value="">Phường/Xã</option>';
+
+        foreach($wards as $ward){
+            $result .= '<option value="'.$ward['id'].'">'.$ward['ward_name'].'</option>';
+        }
+
+        echo $result;
+    }
+
+    public function getStreets(){
+        $ward = $_POST['ward'];
+
+        $streets = $this->streets->getStreetsOfWard($ward);
+
+        $result = '<option value="">Đường</option>';
+
+        foreach($streets as $street){
+            $result .= '<option value="'.$street['id'].'">'.$street['street_name'].'</option>';
+        }
+
+        echo $result;
     }
 }

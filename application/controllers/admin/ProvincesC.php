@@ -71,5 +71,4 @@ class ProvincesC extends MY_Controller {
         }
         redirect('admin/provincesC/index', 'refresh');
     }
-
 }
