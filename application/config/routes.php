@@ -66,13 +66,14 @@ $route['quen-mat-khau.html'] = 'sites/forgot';
 $route['dang-tai-san-moi.html'] = 'members/newProperty';
 $route['tai-san-da-dang.html'] = 'members/postedProperty';
 $route['tai-san-da-luu.html'] = 'members/savedProperty';
-
+$route['(tim-kiem).html'] = 'sites/search';
 
 $route['(:any)/(:any).html'] = 'sites/actionLevelTwo/$1/$2';
 $route['(:any)/(:any).html/(:num)'] = 'sites/actionLevelTwo/$1/$2/$3';
 $route['(:any).html'] = 'sites/actionLevelOne/$1';
+$route['(:any).html/(:num)'] = 'sites/actionLevelOne/$1/$2';
 
-$route['tin-tuc.html/(:num)'] = 'newsSite/index/$1';
-$route['(:any)n.html'] = 'newsSite/index/$1';
-$route['(:any)n.html/(:num)'] = 'newsSite/index/$1/$2';
-$route['(:any)nd.html'] = 'newsSite/detail/$1';
+// $route['tin-tuc.html/(:num)'] = 'newsSite/index/$1';
+// $route['(:any)n.html'] = 'newsSite/index/$1';
+// $route['(:any)n.html/(:num)'] = 'newsSite/index/$1/$2';
+// $route['(:any)nd.html'] = 'newsSite/detail/$1';

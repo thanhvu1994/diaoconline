@@ -295,4 +295,16 @@ class Bds extends CI_Model {
 
         return $result;
     }
+
+    public function getBds($limit, $start, $arr_condition, $arr_like = []){
+        $this->db->limit($limit, $start);
+        $this->db->order_by('created_date desc');
+        if (!empty($arr_like)) {
+            $this->db->or_like($arr_like, 'both'); 
+        }
+        
+        $query = $this->db->get_where('bds', $arr_condition);
+
+        return $query->result('Bds');
+    }
 }

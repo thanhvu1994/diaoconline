@@ -36,7 +36,6 @@
                 <div class="content">
                     <ul class="headline_tab">
                         <li class="actived"><span class="L"></span><a href="javascript:void(0)">Tỉnh thành</a><span class="R"></span></li>
-                        <!-- <li><a href="kham-pha/phong-thuy-c9.html"><span>Phong Thủy</span></a></li> -->
                     </ul>
                 </div>
             </div>

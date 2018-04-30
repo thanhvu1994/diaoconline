@@ -25,6 +25,8 @@ class Sites extends Front_Controller {
         $this->load->model('genSlug');
         if ($slug == 'tin-tuc') {
             $this->news($slug);
+        } elseif($slug == 'dia-oc') {
+            $this->bds($slug);
         } else {
             $model_slug = $this->genSlug->get_model(['slug' => $slug]);
             if (count($model_slug) > 0) {
@@ -32,6 +34,8 @@ class Sites extends Front_Controller {
                     $this->detailNew($slug);
                 } elseif ($model_slug->type == 'bds') {
                     $this->bdsDetail($slug);
+                } elseif ($model_slug->type == 'province') {
+                    $this->bdsProvince($slug);
                 }
             } else {
                 redirect('sites', 'refresh');
@@ -161,20 +165,67 @@ class Sites extends Front_Controller {
 
     ////////////// Page bds /////////////
     private function bds($slug) {
-        $data['title'] = 'Trang Chủ';
-        $data['description'] = 'Trang Chủ';
+        $data['title'] = '';
+        $data['description'] = '';
 
         $data['template'] = 'bds/index';
+        $url = 'dia-oc.html';
+        $num = 2;
+        $query = $this->db->query("SELECT * FROM ci_bds ORDER BY created_date desc");
+        $this->paginationBds($data, $query, [], $url, $num);
 
         $this->load->view('layouts/index', $data);
     }
 
-    private function bdsDetail($slug) {
-        $data['title'] = 'Trang Chủ';
-        $data['description'] = 'Trang Chủ';
+    public function bdsProvince($slug) {
+        $data['title'] = '';
+        $data['description'] = '';
 
+        $data['template'] = 'bds/index';
+        $url = base_url($slug.'.html');
+        $num = 2;
+        $province = $this->provinces->get_model(['slug' => $slug]);
+        if (count($province) > 0) {
+            $query = $this->db->query("SELECT * FROM ci_bds WHERE province_id = ".$province->id." ORDER BY created_date desc");
+            $this->paginationBds($data, $query, ['province_id' => $province->id], $url, $num);
+            $this->load->view('layouts/index', $data);
+        }
+
+    }
+
+    private function paginationBds(&$data, $query, $arr_condition, $url, $num, $arr_like = []) {
+        $config['base_url'] = base_url($url);
+        $config['total_rows'] = $query->num_rows();
+        $config['per_page'] = PAGINATION_FE;
+        $config['uri_segment'] = 2;
+        $config['use_page_numbers'] = TRUE;
+
+        $config["prev_tag_open"] = "<li id='pagination_previous_bottom' class='pagination_previous'>";
+        $config["prev_tag_close"] = "<li>";
+
+        $config["next_tag_open"] = "<li id='pagination_next_bottom' class='pagination_next'>";
+        $config["next_tag_open"] = "<li>";
+
+        $config["num_tag_open"] = "<li>";
+        $config["num_tag_close"] = "</li>";
+
+        $config["cur_tag_open"] = "<li class='actived'><a href='javascript:void(0)'>";
+        $config["cur_tag_close"] = "</a></li>";
+
+        $this->pagination->initialize($config);
+
+        $page = ($this->uri->segment($num)) ? $this->uri->segment($num) : 1;
+        $page = $config['per_page'] * ($page-1);
+
+        $data['all_bds'] = $this->bds->getBds($config["per_page"], $page, $arr_condition, $arr_like);
+        $data["links"] = $this->pagination->create_links();
+    }
+
+    private function bdsDetail($slug) {
         $data['template'] = 'bds/detail';
         $bds = $this->bds->get_model(['slug' => $slug]);
+        $data['title'] = $bds->title;
+        $data['description'] = $bds->description;
         $data['bds'] = $bds;
         $this->load->view('layouts/index', $data);
     }
@@ -310,6 +361,90 @@ class Sites extends Front_Controller {
                 $data['error'] = 'Tài khoản không tồn tại';
             }
         }
+        $this->load->view('layouts/index', $data);
+    }
+
+    public function changeProvince() {
+        if (!$this->input->is_ajax_request()) {
+           exit('No direct script access allowed');
+        }
+
+        $province_id = isset($_POST['provinceId']) ? $_POST['provinceId'] : 0;
+        $district_id = isset($_POST['districtId']) && !empty($_POST['districtId']) ? $_POST['districtId'] : 0;
+        $districts = $this->wards->getDropdownListDistrict(['province_id' => $province_id]);
+
+        echo '<option value="">Chọn Quận/Huyện</option>';
+        foreach ($districts as $district) {
+            $selected = $district->id == $district_id ? 'selected' : '';
+            echo '<option value="'.$district->id.'" '.$selected.'>'.$district->district_name.'</option>';
+        }
+    }
+
+    public function changeDistrict() {
+        if (!$this->input->is_ajax_request()) {
+           exit('No direct script access allowed');
+        }
+
+        $district_id = isset($_POST['districtId']) ? $_POST['districtId'] : 0;
+        $ward_id = isset($_POST['wardId']) && !empty($_POST['wardId']) ? $_POST['wardId'] : 0;
+        $wards = $this->streets->getDropdownListWard(['district_id' => $district_id]);
+        
+        echo '<option value="">Chọn Phường/Xã</option>';
+        foreach ($wards as $ward) {
+            $selected = $ward->id == $ward_id ? 'selected' : '';
+            echo '<option value="'.$ward->id.'" '.$selected.'>'.$ward->ward_name.'</option>';
+        }
+    }
+
+    public function search() {
+        $data['title'] = 'Trang Chủ';
+        $data['description'] = 'Trang Chủ';
+
+        $data['template'] = 'bds/index';
+        $url = 'dia-oc.html';
+        $num = 2;
+        $arr_condition = $arr_like = [];
+        if (isset($_GET) && !empty($_GET)) {
+            $condition = [];
+            if (isset($_GET['loai']) && !empty($_GET['loai'])) {
+                $type = $_GET['loai'];
+                $arr_condition['type'] = $type;
+                $condition[] = 'type = '.$type;
+            }
+            if (isset($_GET['do']) && !empty($_GET['do'])) {
+                $real_type_id = $_GET['do'];
+                $arr_condition['real_type_id'] = $real_type_id;
+                $condition[] = 'real_type_id = '.$real_type_id;
+            }
+            if (isset($_GET['tp']) && !empty($_GET['tp'])) {
+                $province_id = $_GET['tp'];
+                $arr_condition['province_id'] = $province_id;
+                $condition[] = 'province_id = '.$province_id;
+            }
+            if (isset($_GET['quan']) && !empty($_GET['quan'])) {
+                $district_id = $_GET['quan'];
+                $arr_condition['district_id'] = $district_id;
+                $condition[] = 'district_id = '.$district_id;
+            }
+            if (isset($_GET['phuong']) && !empty($_GET['phuong'])) {
+                $ward_id = $_GET['phuong'];
+                $arr_condition['ward_id'] = $ward_id;
+                $condition[] = 'ward_id = '.$ward_id;
+            }
+            if (isset($_GET['name']) && !empty($_GET['name'])) {
+                $name = $_GET['name'];
+                $arr_like['name'] = $name;
+                $arr_like['description'] = $name;
+                $condition[] = 'name LIKE "%'.$name.'%" OR description LIKE "%'.$name.'%"';
+            }
+        }
+        if (!empty($condition)) {
+            $query = $this->db->query("SELECT * FROM ci_bds WHERE ".implode("\x20AND\x20", $condition)." ORDER BY created_date desc");
+        } else {
+            $query = $this->db->query("SELECT * FROM ci_bds ORDER BY created_date desc");
+        }
+        $this->paginationBds($data, $query, $arr_condition, $url, $num, $arr_like);
+
         $this->load->view('layouts/index', $data);
     }
 }

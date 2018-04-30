@@ -84,7 +84,7 @@ class Provinces extends CI_Model {
 	}
 
 	public function getUrl() {
-		return '';
+		return $this->slug.'.html';
 	}
 
 	public function getProvincesFE() {
