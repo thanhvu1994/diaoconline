@@ -17,7 +17,8 @@
                 </h1>
                 <div class="box_area">
                     <h2 class="h2">
-                        <a class='link_cate' href="/ban-nha-mat-pho-duong-hoang-mai-8.htm"><b>Vị trí:</b> <span>Bán nhà mặt phố tại Đường Hoàng Mai</span></a> - Quận Hoàng Mai - Hà Nội
+                        <a class='link_cate' href="javascrip:void(0)">
+                            <b>Vị trí:</b> <span><?php echo $bds->getLocation() ?></span></a>
                     </h2>
                     <div class="wr_price">
                         <span>Giá:</span>
@@ -147,12 +148,8 @@
                 </div>
 
                 <div class="tienich">
-                    <![if !IE]>
-                    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-526b16ce15374888"></script>
-                    <div class="addthis_native_toolbox" style="float: left;margin-top:3px;"></div>
-                    <![endif]>
                     <span id="savedNews">
-                        <span onclick="poroductSaved(this,'8077548');">Lưu tin</span>
+                        <span>Lưu tin</span>
                     </span>
                 </div>
             </div>
@@ -160,112 +157,7 @@
             <div class="clear"></div>
         </div>
     </div>
-    <div class="col_280 margin_left">
-        <div class="box_search">
-            <div class="search">
-                <div class="listbox">
-                    <div class="type_bds">
-                        <span id="chothue" class="rent active">Tìm nhanh</span>
-                    </div>
-                    <div class="search-bds">
-                        <ul>
-                            <li class="item">
-                                <select id="">
-                                    <option value="-1">Chọn loại nhà đất</option>
-                                </select>
-                            </li>
-                            <li class="item">
-                                <select id="cboCity">
-                                    <option value="-1">Chọn Tỉnh/Thành phố</option>
-                                </select>
-                            </li>
-                            <li class="item">
-                                <select id="cboDistrict">
-                                    <option value="-1">Chọn Quận/Huyện</option>
-                                </select>
-                            </li>
-                            <li class="item ">
-                                <select id="cboWard">
-                                    <option value="-1">Chọn Phường/Xã</option>
-                                </select>
-                            </li>
-                            <li class="item">
-                                <select id="cboArea">
-                                    <option value="-1">Chọn diện tích</option>
-                                </select>
-                            </li>
-                            <li class="item last">
-                                <select id="cboPrice">
-                                    <option value="-1">Chọn mức giá</option>
-                                </select>
-                            </li>
-                            <li class="item">
-                                <select id="cboDirection">
-                                    <option value="-1">Chọn hướng nhà</option>
-                                </select>
-                            </li>
-                            <li class="item">
-                                <select id="cboProject">
-                                    <option value="-1">Chọn Dự án</option>
-                                </select>
-                            </li>
-                            <li class="item">
-                                <select id="cboStreet">
-                                    <option value="-1">Chọn Đường/Phố</option>
-                                </select>
-                            </li>
-                            <li class="item">
-                                <select id="cboRoom">
-                                    <option value="-1">Số phòng ngủ</option>
-                                </select>
-                            </li>
-                            <li class="wr_bt last">
-                                <a id="btnSearch" href="javascript:void(0)">  TÌM KIẾM</a>
-                            </li>
-                        </ul>
-                        <div class="clear"></div>
-                    </div>
-                    <div class="clear"></div>
-                </div>
-            </div>
-        </div>
-        <?php $newest = $this->bds->getBdsMenu(5);
-        if (count($newest) > 0) :?>
-            <div class="producthot">
-                <div class="type_pr_hot">
-                    <span id="pr_hot" class="active">Nhà đất mới nhất</span>
-                </div>
-                <div class="listbox">
-                    <div id="prHost">
-                        <?php foreach ($newest as $row): 
-                            if ($row->id == $bds->id) continue; ?>
-                            <div class="item">
-                                <h3 class="title">
-                                <a id="hplTitle" title="<?php echo $row->title ?>" href="<?php echo $row->getUrl() ?>"><?php echo $row->shorterContent($row->title, 90) ?></a>
-                                </h3>
-                                <div class="pr_info">
-                                    <a id="MainContent_ProductHot_rptNewProducts_hplAvatar_0" title="<?php echo $row->title ?>" class="avatar" href="<?php echo $row->getUrl() ?>">
-                                        <img id="<?php echo $row->getFirstImage() ?>" />
-                                    </a>
-                                    <div class="cl2">
-                                        <span class="area">
-                                            <?php echo $row->area ?>&nbsp;m&#178;
-                                        </span>
-                                        <span class="address">
-                                            Quận 6 - Hồ Chí Minh
-                                        </span>
-                                        <span class="price">
-                                            <?php echo $row->getPrice() ?>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        <?php endforeach ?>
-                    </div>
-                </div>
-            </div>
-        <?php endif ?>
-    </div>
+    <?php $this->load->view('bds/sidebar'); ?>
 </div>
 
 <script>

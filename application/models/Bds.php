@@ -187,8 +187,8 @@ class Bds extends CI_Model {
         $this->load->model('utilities');
 
         $utilities = [];
-        if (!empty($this->utility_id)) {
-            $arr_id = json_decode($this->utility_id);
+        if (!empty($this->utilities)) {
+            $arr_id = json_decode($this->utilities);
 
             if (is_array($arr_id) && !empty($arr_id)) {
                 $query = $this->db->query("SELECT * FROM ci_utilities WHERE id IN (".implode(',', $arr_id).") ORDER BY name asc");
@@ -212,7 +212,7 @@ class Bds extends CI_Model {
         $query = $this->db->query("SELECT * FROM ci_product_images WHERE product_id = '".$this->id."'");
         $images = $query->result();
 
-        if(!empty($images)){
+        if(!empty($images) && is_file('.'.$images[0]->image)){
             return base_url($images[0]->image);
         }else{
             return base_url('/uploads/bds/no_image.png');
@@ -265,7 +265,17 @@ class Bds extends CI_Model {
     }
 
     public function getPrice() {
-        return $this->price;
+        $price = 0;
+
+        if ($this->price < 1000000) {
+            $price = number_format($this->price).' VND';
+        } elseif ($this->price < 1000000000) {
+            $price = ($this->price / 1000000000 * 100).' triệu';
+        } else {
+            $price = ($this->price / 1000000000).' tỷ';
+        }
+
+        return $price;
     }
 
     public function countPostedPropertyOfUser($user_id)
@@ -274,6 +284,56 @@ class Bds extends CI_Model {
             ->where('user_id', $user_id)
             ->where_in('status', array(STATUS_BDS_PENDING, STATUS_BDS_APPROVED))
             ->count_all_results('bds');
+    }
+
+    public function getLocation($short = false) {
+        $this->load->model('provinces');
+        $this->load->model('wards');
+        $this->load->model('district');
+        $this->load->model('streets');
+
+        $province = $this->provinces->get_model(['id' => $this->province_id]);
+        $ward = $this->wards->get_model(['id' => $this->ward_id]);
+        $district = $this->district->get_model(['id' => $this->district_id]);
+        $street = $this->streets->get_model(['id' => $this->street_id]);
+
+        $result = '';
+
+        if (!$short) {
+            $result = $this->apartment_number;
+            if ($street) {
+                $str = '';
+                if (!empty($result)) {
+                    $str = ' - ';
+                }
+                $result .= $str.$street->street_name;
+            }
+            if ($ward) {
+                $str = '';
+                if (!empty($result)) {
+                    $str = ' - ';
+                }
+                $result .= $str.$ward->ward_name;
+            }
+        }
+
+        if ($district) {
+            $str = '';
+            if (!empty($result)) {
+                $str = ' - ';
+            }
+            $result .= $str.$district->district_name;
+        }
+
+        if ($province) {
+            $str = '';
+            if (!empty($result)) {
+                $str = ' - ';
+            }
+            $result .= $str.$province->province_name;
+        }
+
+        return $result;
     }
 
     public function postedPropertyOfUser($user_id)
