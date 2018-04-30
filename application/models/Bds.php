@@ -24,6 +24,9 @@ class Bds extends CI_Model {
     public function __construct()
     {	
     	$this->load->model('realEstateType');
+    	$this->load->model('district');
+    	$this->load->model('wards');
+    	$this->load->model('streets');
 	    $this->load->database();
 		$this->load->helper('url');
     }
@@ -60,6 +63,7 @@ class Bds extends CI_Model {
 
 	public function set_model($data_insert)
 	{
+	    $data_insert['code'] = $this->generateCode();
 	    $data_insert['created_date'] = gmdate('Y-m-d H:i:s', time()+7*3600);
 	    $data_insert['update_date'] = gmdate('Y-m-d H:i:s', time()+7*3600);
 
@@ -102,6 +106,42 @@ class Bds extends CI_Model {
     	}
 
     	return '';
+    }
+
+    public function getDistrict() {
+        if ($this->district_id) {
+            $model = $this->district->get_model(['id' => $this->district_id]);
+
+            if ($model) {
+                return $model->district_name;
+            }
+        }
+
+        return '';
+    }
+
+    public function getWard() {
+        if ($this->ward_id) {
+            $model = $this->wards->get_model(['id' => $this->ward_id]);
+
+            if ($model) {
+                return $model->ward_name;
+            }
+        }
+
+        return '';
+    }
+
+    public function getStreet() {
+        if ($this->street_id) {
+            $model = $this->streets->get_model(['id' => $this->street_id]);
+
+            if ($model) {
+                return $model->street_name;
+            }
+        }
+
+        return '';
     }
 
     public function getPhapLy() {
@@ -232,7 +272,68 @@ class Bds extends CI_Model {
     {
         return $this->db
             ->where('user_id', $user_id)
-            ->where('status', STATUS_BDS_PENDING)
+            ->where_in('status', array(STATUS_BDS_PENDING, STATUS_BDS_APPROVED))
             ->count_all_results('bds');
+    }
+
+    public function postedPropertyOfUser($user_id)
+    {
+        return $this->db
+            ->where('user_id', $user_id)
+            ->where_in('status', array(STATUS_BDS_PENDING, STATUS_BDS_APPROVED))
+            ->get('bds')->result('bds');
+    }
+
+    public function countSavedPropertyOfUser($user_id)
+    {
+        return $this->db
+            ->where('user_id', $user_id)
+            ->where('status', STATUS_BDS_DRAFT)
+            ->count_all_results('bds');
+    }
+
+    public function savedPropertyOfUser($user_id)
+    {
+        return $this->db
+            ->where('user_id', $user_id)
+            ->where('status', STATUS_BDS_DRAFT)
+            ->get('bds')->result('bds');
+    }
+
+    public function getCode(){
+        return $this->code;
+    }
+
+    public function getDistrictAndProvince(){
+        $query = $this->db->get_where('district', array('id' => $this->district_id), 1, 0);
+        $district = $query->result('district');
+
+        $query1 = $this->db->get_where('provinces', array('id' => $this->province_id), 1, 0);
+        $province = $query1->result('provinces');
+
+        $result = '';
+
+        if(!empty($district)){
+            $result .= $district[0]->district_name;
+        }
+
+        if(!empty($province)){
+            $result .= ', '.$province[0]->province_name;
+        }
+
+        return $result;
+    }
+
+    public function generateCode(){
+        $maxid = 0;
+        $row = $this->db->query('SELECT MAX(id) AS `maxid` FROM `ci_bds`')->row();
+        if ($row) {
+            $maxid = $row->maxid;
+        }
+        return date('dmY').(str_pad($maxid+1, 4, '0', STR_PAD_LEFT));
+    }
+
+    public function getEditUrl(){
+        return base_url('thanh-vien/tai-san.html/'.$this->code);
     }
 }
