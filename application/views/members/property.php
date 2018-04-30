@@ -10,16 +10,6 @@
                         </p>
                     </div>
                 </div>
-                <!--<div class="alert margin_left">
-                    <ul>
-                        <li class="block new_mail"><a href="/thanh-vien/hop-thu/da-nhan" class="icon">THƯ </a>
-                            <a href="/thanh-vien/hop-thu/da-nhan">0 THƯ TỪ HỆ THỐNG</a> </li>
-                        <li class="block dealing"><a href="/thanh-vien/tai-san/dang-hien-thi" class="icon">TÀI SẢN ĐANG GIAO DỊCH</a>
-                            <a href="/thanh-vien/tai-san/dang-hien-thi">0 TS ĐANG GIAO DỊCH</a></li>
-                        <li class="block point last"><a href="javascript:void(0)" class="icon"></a>
-                            <a href="javascript:void(0)"><span id="UserPoint">0</span> ĐIỂM DOOL</a></li>
-                    </ul>
-                </div>-->
             </div>
         </div>
         <div class="wrap margin_bottom">
@@ -76,7 +66,7 @@
                                                     <div class="option">
                                                         <?php if(isset($this->bds->arr_type)): ?>
                                                             <?php foreach($this->bds->arr_type as $value => $type): ?>
-                                                                <input <?php echo ($value == '1')? 'checked' : ''; ?> type="radio" name="bds[type]" id="at_<?php echo $value; ?>" value="<?php echo $value; ?>">
+                                                                <input <?php echo ($value == $property->type)? 'checked' : ''; ?> type="radio" name="bds[type]" id="at_<?php echo $value; ?>" value="<?php echo $value; ?>">
                                                                 <label for="at_<?php echo $value; ?>"><?php echo $type; ?></label>
                                                             <?php endforeach; ?>
                                                         <?php endif;?>
@@ -86,13 +76,13 @@
                                                     <select id="DioTypeList" name="bds[real_type_id]">
                                                         <option value="">Chọn loại địa ốc</option>
                                                         <?php foreach($this->realEstateType->getModelArray() as $key => $type): ?>
-                                                            <option value="<?php echo $type['id']; ?>"><?php echo $type['name']; ?></option>
+                                                            <option <?php echo ($type['id'] == $property->real_type_id)? 'selected' : ''; ?> value="<?php echo $type['id']; ?>"><?php echo $type['name']; ?></option>
                                                         <?php endforeach; ?>
                                                     </select>
                                                     <select id="DioLineList" name="bds[front_area_id]">
                                                         <option value="">Chọn đường trước nh&#224;</option>
                                                         <?php foreach($this->frontArea->getModelArray() as $key => $type): ?>
-                                                            <option value="<?php echo $type['id']; ?>"><?php echo $type['name']; ?></option>
+                                                            <option <?php echo ($type['id'] == $property->front_area_id)? 'selected' : ''; ?> value="<?php echo $type['id']; ?>"><?php echo $type['name']; ?></option>
                                                         <?php endforeach; ?>
                                                     </select>
                                                 </li>
@@ -101,49 +91,61 @@
                                                         <select id="selectCity" name="bds[province_id]">
                                                             <option value="">Tỉnh/Th&#224;nh phố</option>
                                                             <?php foreach($this->provinces->getModelArray() as $key => $type): ?>
-                                                                <option value="<?php echo $type['id']; ?>"><?php echo $type['province_name']; ?></option>
+                                                                <option <?php echo ($type['id'] == $property->province_id)? 'selected' : ''; ?> value="<?php echo $type['id']; ?>"><?php echo $type['province_name']; ?></option>
                                                             <?php endforeach; ?>
                                                         </select>
                                                         <span id="districtMember">
                                                             <select class="last" id="selectDistrict" name="bds[district_id]">
                                                                 <option value="">Quận/Huyện</option>
+                                                                <?php if(!empty($property->district_id)): ?>
+                                                                    <option selected value="<?php echo $property->district_id; ?>"><?php echo $property->getDistrict(); ?></option>
+                                                                <?php endif;?>
                                                             </select>
                                                         </span>
                                                         <span id="wardMember">
                                                             <select id="selectWard" name="bds[ward_id]">
                                                                 <option value="">Phường/X&#227;</option>
+                                                                <?php if(!empty($property->ward_id)): ?>
+                                                                    <option selected value="<?php echo $property->ward_id; ?>"><?php echo $property->getWard(); ?></option>
+                                                                <?php endif;?>
                                                             </select>
                                                         </span>
                                                         <span id="streetMember">
                                                             <select class="last" id="selectStreet" name="bds[street_id]">
                                                                 <option value="">Đường</option>
+                                                                <?php if(!empty($property->street_id)): ?>
+                                                                    <option selected value="<?php echo $property->street_id; ?>"><?php echo $property->getStreet(); ?></option>
+                                                                <?php endif;?>
                                                             </select>
                                                         </span>
-                                                        <input id="HouseNumber" maxlength="150" name="bds[apartment_number]" placeholder="Số nhà" type="text" value="" />
+                                                        <input id="HouseNumber" maxlength="150" name="bds[apartment_number]" placeholder="Số nhà" type="text" value="<?php echo $property->apartment_number; ?>" />
                                                     </div>
                                                 </li>
                                                 <li class="map">
                                                     <label>Bản đồ</label>
                                                     <div id="map"></div>
-                                                    <input id="latitude" name="bds[coordinate][]" type="hidden" value="" />
-                                                    <input id="longtitude" name="bds[coordinate][]" type="hidden" value="" />
+                                                    <?php
+                                                        $coordi = json_decode($property->coordinate);
+                                                    ?>
+                                                    <input id="latitude" name="bds[coordinate][]" type="hidden" value="<?php echo (isset($coordi[0]))? $coordi[0]: ''; ?>" />
+                                                    <input id="longtitude" name="bds[coordinate][]" type="hidden" value="<?php echo (isset($coordi[1]))? $coordi[1]: ''; ?>" />
                                                 </li>
                                                 <li class="prj"><label>Thuộc dự án</label>
                                                     <span id="projectMember">
                                                         <select id="ProjectListMember" name="bds[project_id]">
-                                                            <option value="-1">Danh s&#225;ch dự &#225;n</option>
+                                                            <option value="0">Danh s&#225;ch dự &#225;n</option>
                                                             <?php foreach($this->projects->get_model() as $key => $type): ?>
-                                                                <option value="<?php echo $type->id; ?>"><?php echo $type->name; ?></option>
+                                                                <option <?php echo ($type->id == $property->project_id)? 'selected' : ''; ?> value="<?php echo $type->id; ?>"><?php echo $type->name; ?></option>
                                                             <?php endforeach; ?>
                                                         </select>
                                                     </span>
                                                 </li>
                                                 <li class="price">
                                                     <label>Giá <span class="hightlight">*</span></label>
-                                                    <input id="PriceMain" maxlength="18" name="bds[price]" style="margin-right:13px;" type="text" value="" />
+                                                    <input id="PriceMain" maxlength="18" name="bds[price]" style="margin-right:13px;" type="text" value="<?php echo $property->price; ?>" />
                                                     <select id="AssetPriceList" name="bds[currency]">
                                                         <?php foreach($this->bds->arr_currency as $value => $type): ?>
-                                                            <option value="<?php echo $value; ?>"><?php echo $type; ?></option>
+                                                            <option <?php echo ($value == $property->currency)? 'selected' : ''; ?> value="<?php echo $value; ?>"><?php echo $type; ?></option>
                                                         <?php endforeach; ?>
                                                     </select>
                                                     <p>Lưu ý: Muốn <strong>giá thương lượng</strong> thì <strong>để trống hoặc 0</strong>.</p>
@@ -152,38 +154,38 @@
                                                     <label>Đơn vị</label>
                                                     <select id="AssetUnitList" name="bds[unit]" style>
                                                         <?php foreach($this->bds->unit as $value => $type): ?>
-                                                            <option value="<?php echo $value; ?>"><?php echo $type; ?></option>
+                                                            <option <?php echo ($value == $property->unit)? 'selected' : ''; ?> value="<?php echo $value; ?>"><?php echo $type; ?></option>
                                                         <?php endforeach; ?>
                                                     </select>
                                                 </li>
                                                 <li class="living_area"><label>Diện tích sử dụng <span class="hightlight">*</span></label>
                                                     <div class="number">
-                                                        <input id="DTSD" maxlength="9" name="bds[area]" type="text" value="" /><label>m2</label>
+                                                        <input id="DTSD" maxlength="9" name="bds[area]" type="text" value="<?php echo $property->area; ?>" /><label>m2</label>
                                                     </div>
                                                 </li>
                                                 <li class="total_area">
                                                     <label>Diện tích khuôn viên</label>
                                                     <div class="number">
-                                                        <input id="DTKVWidth" name="bds[horizontal_yard_area]" placeholder="chiều ngang" type="text" value="" /><label>m</label>
+                                                        <input id="DTKVWidth" name="bds[horizontal_yard_area]" placeholder="chiều ngang" type="text" value="<?php echo $property->horizontal_yard_area; ?>" /><label>m</label>
                                                         <span>x</span>
-                                                        <input id="DTKVLength" name="bds[vertical_yard_area]" placeholder="chiều dài" type="text" value="" /><label>m</label>
-                                                        <div class="check"><input type="checkbox" id="chkDTKV" /><label for="chkDTKV">Nở hậu</label></div>
+                                                        <input id="DTKVLength" name="bds[vertical_yard_area]" placeholder="chiều dài" type="text" value="<?php echo $property->vertical_yard_area; ?>" /><label>m</label>
+                                                        <div class="check"><input <?php echo ($property->horizontal_yard_area_after != 0 )? 'checked' : ''; ?> type="checkbox" id="chkDTKV" /><label for="chkDTKV">Nở hậu</label></div>
                                                     </div>
                                                     <label id="lbDTKV"></label>
                                                     <div class="number" id="dvDTKV">
-                                                        <input id="DTKVWidthBehind" name="bds[horizontal_yard_area_after]" placeholder="chiều ngang sau" style="margin-top:1px;" type="text" value="" /><label>m</label>
+                                                        <input id="DTKVWidthBehind" name="bds[horizontal_yard_area_after]" placeholder="chiều ngang sau" style="margin-top:1px;" type="text" value="<?php echo $property->horizontal_yard_area_after; ?>" /><label>m</label>
                                                     </div>
                                                 </li>
                                                 <li class="used_area"><label>Diện tích xây dựng</label>
                                                     <div class="number">
-                                                        <input id="DTXDWidth" name="bds[horizonta_contruction_area]" placeholder="chiều ngang" type="text" value="" /><label>m</label>
+                                                        <input id="DTXDWidth" name="bds[horizonta_contruction_area]" placeholder="chiều ngang" type="text" value="<?php echo $property->horizonta_contruction_area; ?>" /><label>m</label>
                                                         <span>x</span>
-                                                        <input id="DTXDLength" name="bds[vertica_contruction_area]" placeholder="chiều dài" type="text" value="" /><label>m</label>
-                                                        <div class="check"><input type="checkbox" id="chkDTXD" /><label for="chkDTXD">Nở hậu</label></div>
+                                                        <input id="DTXDLength" name="bds[vertica_contruction_area]" placeholder="chiều dài" type="text" value="<?php echo $property->vertica_contruction_area; ?>" /><label>m</label>
+                                                        <div class="check"><input <?php echo ($property->horizonta_contruction_area_after != 0 )? 'checked' : ''; ?> type="checkbox" id="chkDTXD" /><label for="chkDTXD">Nở hậu</label></div>
                                                     </div>
                                                     <label id="lbDTXD"></label>
                                                     <div class="number" id="dvDTXD">
-                                                        <input id="DTXDWidthBehind" name="bds[horizonta_contruction_area_after]" placeholder="chiều ngang sau" style="margin-top:1px;" type="text" value="" /><label>m</label>
+                                                        <input id="DTXDWidthBehind" name="bds[horizonta_contruction_area_after]" placeholder="chiều ngang sau" style="margin-top:1px;" type="text" value="<?php echo $property->horizonta_contruction_area_after; ?>" /><label>m</label>
                                                     </div>
                                                 </li>
 
@@ -242,14 +244,14 @@
                                                 <li id="diostatelegal"><label>Tình trạng pháp lý</label>
                                                     <select id="DioStateLegalList" name="bds[phap_ly_id]"><option value="">Chọn t&#236;nh trạng</option>
                                                         <?php foreach($this->phapLy->getModelArray() as $value => $type): ?>
-                                                            <option value="<?php echo $type['id']; ?>"><?php echo $type['name']; ?></option>
+                                                            <option <?php echo ($type['id'] == $property->phap_ly_id)? 'selected' : ''; ?> value="<?php echo $type['id']; ?>"><?php echo $type['name']; ?></option>
                                                         <?php endforeach; ?>
                                                     </select>
                                                 </li>
                                                 <li id="diodirection"><label>Hướng tài sản</label>
                                                     <select id="DioDirectionList" name="bds[direction_id]"><option value="">Chọn hướng địa ốc</option>
                                                         <?php foreach($this->direction->getModelArray() as $value => $type): ?>
-                                                            <option value="<?php echo $type['id']; ?>"><?php echo $type['name']; ?></option>
+                                                            <option <?php echo ($type['id'] == $property->direction_id)? 'selected' : ''; ?> value="<?php echo $type['id']; ?>"><?php echo $type['name']; ?></option>
                                                         <?php endforeach; ?>
                                                     </select>
                                                 </li>
@@ -257,7 +259,7 @@
                                                     <select id="NumberOfFloorList" name="bds[number_of_floor]">
                                                         <option value="-1">Chọn số tầng</option>
                                                         <?php for($i=1; $i <= 200; $i++): ?>
-                                                            <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+                                                            <option <?php echo ($i == $property->number_of_floor)? 'selected' : ''; ?> value="<?php echo $i; ?>"><?php echo $i; ?></option>
                                                         <?php endfor; ?>
                                                     </select>
                                                 </li>
@@ -265,7 +267,7 @@
                                                     <select id="NumberOfLivingRoomList" name="bds[number_of_guest_room]">
                                                         <option value="-1">Chọn số ph&#242;ng kh&#225;ch</option>
                                                         <?php for($i=1; $i <= 200; $i++): ?>
-                                                            <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+                                                            <option <?php echo ($i == $property->number_of_guest_room)? 'selected' : ''; ?> value="<?php echo $i; ?>"><?php echo $i; ?></option>
                                                         <?php endfor; ?>
                                                     </select>
                                                 </li>
@@ -273,7 +275,7 @@
                                                     <select id="NumberOfBedRoomList" name="bds[number_of_bed_room]">
                                                         <option value="-1">Chọn số ph&#242;ng ngủ</option>
                                                         <?php for($i=1; $i <= 200; $i++): ?>
-                                                            <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+                                                            <option <?php echo ($i == $property->number_of_bed_room)? 'selected' : ''; ?> value="<?php echo $i; ?>"><?php echo $i; ?></option>
                                                         <?php endfor; ?>
                                                     </select>
                                                 </li>
@@ -281,7 +283,7 @@
                                                     <select id="NumberOfWCList" name="bds[number_of_rest_room]">
                                                         <option value="-1">Chọn số ph&#242;ng WC</option>
                                                         <?php for($i=1; $i <= 200; $i++): ?>
-                                                            <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+                                                            <option <?php echo ($i == $property->number_of_rest_room)? 'selected' : ''; ?> value="<?php echo $i; ?>"><?php echo $i; ?></option>
                                                         <?php endfor; ?>
                                                     </select>
                                                 </li>
@@ -290,13 +292,16 @@
                                                         <option value="-1">Chọn số ph&#242;ng kh&#225;c</option>
                                                         <option value="0">0</option>
                                                         <?php for($i=1; $i <= 200; $i++): ?>
-                                                            <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+                                                            <option <?php echo ($i == $property->number_of_other_room)? 'selected' : ''; ?> value="<?php echo $i; ?>"><?php echo $i; ?></option>
                                                         <?php endfor; ?>
                                                     </select>
                                                 </li>
+                                                <?php
+                                                    $utilities = json_decode($property->utilities);
+                                                ?>
                                                 <li><label>Các tiện ích</label></li>
                                                 <?php foreach($this->utilities->getModelArray() as $key => $type): ?>
-                                                    <li class="check"><input  name="bds[utilities][]" id="uti_<?php echo $key; ?>" value="<?php echo $type['id']; ?>" type="checkbox" />
+                                                    <li class="check"><input <?php echo (in_array($type['id'], $utilities))? 'checked' : ''; ?> name="bds[utilities][]" id="uti_<?php echo $key; ?>" value="<?php echo $type['id']; ?>" type="checkbox" />
                                                         <label for="uti_<?php echo $key; ?>"><?php echo $type['name']; ?></label></li>
                                                 <?php endforeach; ?>
                                             </ul>
@@ -317,11 +322,10 @@
                                             <li></li>
 
                                             <li><label>Tiêu đề <strong class="hightlight">*</strong></label>
-                                                <input id="Title" name="bds[name]" type="text" value="" /></li>
+                                                <input id="Title" name="bds[name]" type="text" value="<?php echo $property->name; ?>" /></li>
                                             <li></li>
                                             <li><label>Nội dung mô tả <strong class="hightlight">*</strong></label>
-                                                <textarea cols="" id="Detail" maxlength="2000" name="bds[description]" rows="">
-</textarea>
+                                                <textarea cols="" id="Detail" maxlength="2000" name="bds[description]" rows=""><?php echo $property->description; ?></textarea>
                                             </li>
                                         </ul>
                                     </fieldset>
@@ -332,6 +336,18 @@
                                 <div class="body">
                                     <input type="file" name="bds[images][]" class="dropify" multiple/>
                                 </div>
+                                <?php
+                                $images = $property->getImages();
+                                ?>
+                                <?php if(!empty($images)): ?>
+                                    <?php foreach($images as $image): ?>
+                                        <div id="image-<?php echo $image->id; ?>" class="gallery">
+                                            <a target="_blank" href="<?php echo base_url($image->image); ?>">
+                                                <img width="150" style="max-height: 120px" src="<?php echo base_url($image->image); ?>"/>
+                                            </a>
+                                        </div>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
                             </div>
                             <div id="post_info_5" class="rounded_style_1 rounded_box margin_bottom">
                                 <div class="headline_12"><h2>THÔNG TIN LIÊN HỆ</h2></div>
@@ -339,13 +355,13 @@
                                     <fieldset>
                                         <ul>
                                             <li><label>Họ và tên <span class="hightlight">*</span></label>
-                                                <input id="ContactName" maxlength="200" name="bds[poster]" type="text" value="<?php echo $user->full_name; ?>" /></li>
+                                                <input id="ContactName" maxlength="200" name="bds[poster]" type="text" value="<?php echo $property->poster; ?>" /></li>
 
                                             <li class="phone"><label>Điện thoại</label>
-                                                <input id="ContactPhone" maxlength="40" name="bds[phone]" placeholder="Điện thoại bàn" style="width:200px" type="text" value="<?php echo $user->phone_number; ?>" />
-                                                <input id="ContactMobile" maxlength="40" name="bds[cell_phone]" placeholder="Di động" style="width:200px" type="text" value="<?php echo $user->mobile_number; ?>" /><span class="hightlight">*</span></li>
+                                                <input id="ContactPhone" maxlength="40" name="bds[phone]" placeholder="Điện thoại bàn" style="width:200px" type="text" value="<?php echo $property->phone; ?>" />
+                                                <input id="ContactMobile" maxlength="40" name="bds[cell_phone]" placeholder="Di động" style="width:200px" type="text" value="<?php echo $property->cell_phone; ?>" /><span class="hightlight">*</span></li>
                                             <li><label>Địa chỉ</label>
-                                                <input id="ContactAddress" maxlength="200" name="bds[address]" type="text" value="<?php echo $user->address; ?>" /></li>
+                                                <input id="ContactAddress" maxlength="200" name="bds[address]" type="text" value="<?php echo $property->address; ?>" /></li>
                                             <li><label>Ghi chú </label>
                                                 <input id="ContactNotes" maxlength="200" name="bds[note]" type="text" value="" /></li>
                                         </ul>
@@ -502,5 +518,8 @@
         #map {
             height: 250px;
             width: 70%;
+        }
+        .gallery {
+            display: inline-block;
         }
     </style>

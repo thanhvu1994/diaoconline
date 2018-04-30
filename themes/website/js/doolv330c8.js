@@ -294,6 +294,9 @@ function GetDataConfirm(urlData, idData) {
             , success: function (data) {
                 if (data != null & data.msg == true) {
                     $('#' + idData).fadeOut(600);
+
+                    var current = $('#countProper').html();
+                    $('#countProper').html(current - 1);
                 }
             }
         });

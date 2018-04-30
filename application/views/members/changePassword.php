@@ -33,10 +33,10 @@
                             <a href="javascript:void(0)">QUẢN LÝ TÀI SẢN</a></h2>
                         <ul>
                             <li>
-                                <a href="<?php echo base_url('tai-khoan-cua-toi.html'); ?>">Thông tin tài khoản</a>
+                                <a href="<?php echo base_url('thanh-vien/tai-khoan-cua-toi.html'); ?>">Thông tin tài khoản</a>
                             </li>
                             <li>
-                                <a href="<?php echo base_url('doi-mat-khau.html'); ?>">Đổi Mật Khẩu</a>
+                                <a href="<?php echo base_url('thanh-vien/doi-mat-khau.html'); ?>">Đổi Mật Khẩu</a>
                             </li>
                         </ul>
                     </div>
@@ -46,13 +46,13 @@
                             <a href="javascript:void(0)">QUẢN LÝ TÀI SẢN</a></h2>
                         <ul>
                             <li>
-                                <a href="<?php echo base_url('dang-tai-san-moi.html'); ?>">Đăng tài sản mới</a>
+                                <a href="<?php echo base_url('thanh-vien/dang-tai-san-moi.html'); ?>">Đăng tài sản mới</a>
                             </li>
                             <li>
-                                <a href="<?php echo base_url('tai-san-da-dang.html'); ?>">Tài sản đã đăng</a>
+                                <a href="<?php echo base_url('thanh-vien/tai-san-da-dang.html'); ?>">Tài sản đã đăng</a>
                             </li>
                             <li>
-                                <a href="<?php echo base_url('tai-san-da-luu.html'); ?>">Tài sản đã lưu</a>
+                                <a href="<?php echo base_url('thanh-vien/tai-san-da-luu.html'); ?>">Tài sản đã lưu</a>
                             </li>
                         </ul>
                     </div>

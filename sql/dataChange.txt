@@ -1,2 +1,6 @@
 ALTER TABLE `diaoconline`.`ci_bds`
 CHANGE COLUMN `utility_id` `utilities` text NOT NULL AFTER `direction_id`;
+ALTER TABLE `diaoconline`.`ci_bds`
+ADD COLUMN `code` varchar(255) NOT NULL AFTER `id`;
+ALTER TABLE `diaoconline`.`ci_bds`
+ADD COLUMN `coordinate` varchar(255) NOT NULL AFTER `price`;

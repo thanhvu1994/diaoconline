@@ -60,6 +60,7 @@ $route['admin'] = 'admin/login';
 $route['dang-ky.html'] = 'sites/register';
 $route['dang-nhap.html'] = 'sites/login';
 $route['dang-xuat.html'] = 'sites/logout';
+
 $route['tai-khoan-cua-toi.html'] = 'members/myAccount';
 $route['doi-mat-khau.html'] = 'members/changePassword';
 $route['quen-mat-khau.html'] = 'sites/forgot';
@@ -67,6 +68,17 @@ $route['dang-tai-san-moi.html'] = 'members/newProperty';
 $route['tai-san-da-dang.html'] = 'members/postedProperty';
 $route['tai-san-da-luu.html'] = 'members/savedProperty';
 $route['(tim-kiem).html'] = 'sites/search';
+
+$route['thanh-vien/tai-khoan-cua-toi.html'] = 'members/myAccount';
+$route['thanh-vien/doi-mat-khau.html'] = 'members/changePassword';
+$route['thanh-vien/quen-mat-khau.html'] = 'sites/forgot';
+$route['thanh-vien/dang-tai-san-moi.html'] = 'members/newProperty';
+$route['thanh-vien/tai-san-da-dang.html'] = 'members/postedProperty';
+$route['thanh-vien/tai-san-da-luu.html'] = 'members/savedProperty';
+$route['thanh-vien/xoa-tai-san.html/(:any)'] = 'members/deleteProperty/$1';
+$route['thanh-vien/tai-san.html/(:any)'] = 'members/property/$1';
+
+
 
 $route['(:any)/(:any).html'] = 'sites/actionLevelTwo/$1/$2';
 $route['(:any)/(:any).html/(:num)'] = 'sites/actionLevelTwo/$1/$2/$3';

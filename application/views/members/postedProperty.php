@@ -33,10 +33,10 @@
                             <a href="javascript:void(0)">QUẢN LÝ TÀI SẢN</a></h2>
                         <ul>
                             <li>
-                                <a href="<?php echo base_url('tai-khoan-cua-toi.html'); ?>">Thông tin tài khoản</a>
+                                <a href="<?php echo base_url('thanh-vien/tai-khoan-cua-toi.html'); ?>">Thông tin tài khoản</a>
                             </li>
                             <li>
-                                <a href="<?php echo base_url('doi-mat-khau.html'); ?>">Đổi Mật Khẩu</a>
+                                <a href="<?php echo base_url('thanh-vien/doi-mat-khau.html'); ?>">Đổi Mật Khẩu</a>
                             </li>
                         </ul>
                     </div>
@@ -46,13 +46,13 @@
                             <a href="javascript:void(0)">QUẢN LÝ TÀI SẢN</a></h2>
                         <ul>
                             <li>
-                                <a href="<?php echo base_url('dang-tai-san-moi.html'); ?>">Đăng tài sản mới</a>
+                                <a href="<?php echo base_url('thanh-vien/dang-tai-san-moi.html'); ?>">Đăng tài sản mới</a>
                             </li>
                             <li>
-                                <a href="<?php echo base_url('tai-san-da-dang.html'); ?>">Tài sản đã đăng</a>
+                                <a href="<?php echo base_url('thanh-vien/tai-san-da-dang.html'); ?>">Tài sản đã đăng</a>
                             </li>
                             <li>
-                                <a href="<?php echo base_url('tai-san-da-luu.html'); ?>">Tài sản đã lưu</a>
+                                <a href="<?php echo base_url('thanh-vien/tai-san-da-luu.html'); ?>">Tài sản đã lưu</a>
                             </li>
                         </ul>
                     </div>
@@ -60,27 +60,28 @@
             </div>
             <div class="col_790 margin_left">
                 <div id="propertise_displaying" class="box">
-                    <div  class="headline_11"><h2>TÀI SẢN ĐÃ ĐĂNG (<?php echo $countProperty; ?>)</h2></div>
+                    <div  class="headline_11"><h2>TÀI SẢN ĐÃ ĐĂNG (<span id="countProper"><?php echo $countProperty; ?></span>)</h2></div>
                     <div class="body">
                         <div class="propertise_list unpaid">
                             <ul>
-                                <li id="item_1593785">
-                                    <div class="short_info">
-                                        <div class="img"><a href="/thue-can-ho-dich-vu-c26/phong-tro-123-i1593785"><img src="http://image.diaoconline.vn/sieu-thi/can-ho-dich-vu_350.jpg" width="75" height="75" alt="Ph&#242;ng trọ 123" /></a></div>
-                                        <div class="text">
-                                            <span class="property_code">MSTS:<strong>1593785</strong></span>
-                                            <br />
-                                            <h4><a href="/thue-can-ho-dich-vu-c26/phong-tro-123-i1593785">Phòng trọ 123</a></h4>
-                                            <span class="location">Vị trí: Từ Liêm, Hà Nội</span>
+                                <?php foreach($properties as $property): ?>
+                                    <li id="<?php echo $property->code; ?>">
+                                        <div class="short_info">
+                                            <div class="img"><a href="<?php echo $property->getEditUrl(); ?>"><img src="<?php echo $property->getFirstImage(); ?>" width="75" height="75" alt="<?php echo $property->name; ?>" /></a></div>
+                                            <div class="text">
+                                                <span class="property_code">MSTS:<strong><?php echo $property->getCode(); ?></strong></span>
+                                                <br />
+                                                <h4><a href="<?php echo $property->getEditUrl(); ?>"><?php echo $property->name; ?></a></h4>
+                                                <span class="location"><?php echo $property->getDistrictAndProvince(); ?></span>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="repair_post">
-                                        <span class="updated_date">Ngày tạo: 29/04/2018</span><br />
-                                        <a href="/thanh-vien/tai-san-dang-moi/1593785" class="repair"><span class="ico_16 ico_repair_16"></span>Chỉnh sửa</a><br />
-                                    </div>
-                                    <div class="remove"><a title="Ngừng đăng" href="javascript:void(0)" onclick="GetDataConfirm('/thanh-vien/tai-san-ngung-dang/1593785','item_1593785');"><span class="ico_remove_11"></span></a></div>
-                                </li>
-
+                                        <div class="repair_post">
+                                            <span class="updated_date">Ngày tạo : <?php echo date('d/m/Y', strtotime($property->created_date)); ?></span><br />
+                                            <a href="<?php echo $property->getEditUrl(); ?>" class="repair"><span class="ico_16 ico_repair_16"></span>Chỉnh sửa</a><br />
+                                        </div>
+                                        <div class="remove"><a title="Ngừng đăng" href="javascript:void(0)" onclick="GetDataConfirm('/thanh-vien/xoa-tai-san.html/<?php echo $property->code; ?>','<?php echo $property->code; ?>');"><span class="ico_remove_11"></span></a></div>
+                                    </li>
+                                <?php endforeach; ?>
                             </ul>
                         </div>
                         <div class="paging_2">

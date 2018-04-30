@@ -116,7 +116,7 @@
             </div>
             <?php if(isset($this->session->userdata['logged_in_FE'])): ?>
                 <div class="login">
-                    <a href="<?php echo base_url('tai-khoan-cua-toi.html'); ?>" class="signin"><span class="ico_16 ico_login_16">
+                    <a href="<?php echo base_url('thanh-vien/tai-khoan-cua-toi.html'); ?>" class="signin"><span class="ico_16 ico_login_16">
                         </span>Về trang cá nhân</a><div class="dropdown">
                         <a href="<?php echo base_url('dang-xuat.html'); ?>" title="Thoát">setting</a></div>
                 </div>
