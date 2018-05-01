@@ -41,7 +41,7 @@ class Menu extends MY_Controller {
             $data_insert['slug'] = $this->generateSlug($data_insert['category_name'], 'menu');
             $data_insert['thumb'] = $thumb;
             $data_insert['type'] = 'menu';
-            if (is_array($data_insert['location'])) {
+            if (isset($data_insert['location']) && is_array($data_insert['location'])) {
                 $data_insert['location'] = json_encode($data_insert['location']);
             } else{
                 $data_insert['location'] = '';
@@ -88,7 +88,7 @@ class Menu extends MY_Controller {
                 }
             }
             $data_update['type'] = 'menu';
-            if (is_array($data_update['location'])) {
+            if (isset($data_update['location']) && is_array($data_update['location'])) {
                 $data_update['location'] = json_encode($data_update['location']);
             } else{
                 $data_update['location'] = '';

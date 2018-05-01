@@ -1,3 +1,5 @@
+<link href="<?php echo base_url('themes/admin/plugins/bower_components/bootstrap-select/bootstrap-select.min.css') ?>" rel="stylesheet" type="text/css" />
+
 <div class="row bg-title">
     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
         <h4 class="page-title"><?php echo $title ?></h4>
@@ -103,6 +105,81 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label class="col-md-12">Số tầng</label>
+                        <div class="col-md-12">
+                            <input type="number" class="form-control" value="<?php echo (isset($model)) ? $model['number_of_floor'] : ''?>" name="Bds[number_of_floor]">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label class="col-md-12">Số phòng khách</label>
+                        <div class="col-md-12">
+                            <input type="number" class="form-control" value="<?php echo (isset($model)) ? $model['number_of_guest_room'] : ''?>" name="Bds[number_of_guest_room]">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label class="col-md-12">Số phòng ngủ</label>
+                        <div class="col-md-12">
+                            <input type="number" class="form-control" value="<?php echo (isset($model)) ? $model['number_of_bed_room'] : ''?>" name="Bds[number_of_bed_room]">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label class="col-md-12">Số phòng tắm/WC</label>
+                        <div class="col-md-12">
+                            <input type="number" class="form-control" value="<?php echo (isset($model)) ? $model['number_of_rest_room'] : ''?>" name="Bds[number_of_rest_room]">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label class="col-md-12">Số phòng khác</label>
+                        <div class="col-md-12">
+                            <input type="number" class="form-control" value="<?php echo (isset($model)) ? $model['number_of_other_room'] : ''?>" name="Bds[number_of_other_room]">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label class="col-md-12">Số phòng khác</label>
+                        <div class="col-md-12">
+                            <input type="number" class="form-control" value="<?php echo (isset($model)) ? $model['number_of_other_room'] : ''?>" name="Bds[number_of_other_room]">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label class="col-md-12">Tiện ích</label>
+                        <div class="col-md-12">
+                            <select class="form-control selectpicker" name="Bds[utilities][]" multiple data-style="form-control">
+                                <?php $arr_utilities = isset($model) ? json_decode($model['utilities']) : [];
+                                foreach ($this->utilities->get_model() as $row): 
+                                    $selected = '';
+                                    if (in_array($row->id, $arr_utilities)) {
+                                        $selected = 'selected';
+                                    }
+                                ?>
+                                    <option value="<?php echo $row->id ?>" <?php echo $selected ?>><?php echo $row->name ?></option>
+                                <?php endforeach ?>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                
 
                 <h3 class="col-xs-12">Thông tin vị trí</h3>
 
@@ -383,6 +460,8 @@
         </div>
     </div>
 </div>
+
+<script src="<?php echo base_url('themes/admin/plugins/bower_components/bootstrap-select/bootstrap-select.min.js')?>" type="text/javascript"></script>
 
 <script type="text/javascript">
     $(document).ready(function() {

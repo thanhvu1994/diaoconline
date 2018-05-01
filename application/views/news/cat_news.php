@@ -16,9 +16,11 @@
                 <div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
                     <a href="<?php echo $link_1 ?>" itemprop="url" title="<?php echo $parent_category_name ?>"><span itemprop="title"><?php echo $parent_category_name ?></span></a>&raquo;            
                 </div>
-                <div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
-                    <a href="<?php echo $link_2 ?>" itemprop="url" title="<?php echo $category_name ?>"><span itemprop="title"><?php echo $category_name ?></span></a>
-                </div>
+                <?php if (isset($category_name)): ?>
+                    <div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+                        <a href="<?php echo $link_2 ?>" itemprop="url" title="<?php echo $category_name ?>"><span itemprop="title"><?php echo $category_name ?></span></a>
+                    </div>
+                <?php endif ?>
             </div>
         </div>
         <?php if (count($news) > 0): ?>

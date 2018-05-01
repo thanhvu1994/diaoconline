@@ -14,6 +14,7 @@ class BdsC extends MY_Controller {
         $this->load->model('streets');
         $this->load->model('projects');
         $this->load->model('productImages');
+        $this->load->model('utilities');
 
         $config['upload_path']          = './uploads/bds';
         $config['allowed_types']        = '*';
@@ -41,6 +42,9 @@ class BdsC extends MY_Controller {
 
         if (isset($_POST['Bds'])) {
             $data_insert = $_POST['Bds'];
+            if (!empty($_POST['Bds']['utilities'])) {
+                $data_insert['utilities'] = json_encode($_POST['Bds']['utilities']);
+            }
             $data_insert['slug'] = $this->generateSlug($data_insert['name'], 'bds');
 
             $this->bds->set_model($data_insert);
@@ -82,7 +86,10 @@ class BdsC extends MY_Controller {
 
         if (isset($_POST['Bds'])) {
             $data_insert = $_POST['Bds'];
-
+            if (!empty($_POST['Bds']['utilities'])) {
+                $data_insert['utilities'] = json_encode($_POST['Bds']['utilities']);
+            }
+            
             $arrFiles = [];
             if(isset($_FILES['Images'])){
                 $arrFiles = $this->reArrayFiles($_FILES['Images']);

@@ -6,11 +6,6 @@
 		            <div class="email_print">
 		                <ul>
 		                    <li>
-		                        <a href="danh-thue-nha-tren-700-trieu-dong-bo-tai-chinh-giai-thich-the-nao-i70259/ban-in.html" target="_blank">
-		                            <span class="ico_16 ico_print_16"></span>Bản in
-		                        </a>
-		                    </li>
-		                    <li>
 		                        <a href="javascript:void(0)" onclick="GetDataSaved('RlRHGd4m6L4=','/tin-tuc/thi-truong-dia-oc-c18/danh-thue-nha-tren-700-trieu-dong-bo-tai-chinh-giai-thich-the-nao-i70259','.itemsaved')" class="itemsaved">
 		                            <span class="ico_16 ico_save_2_16"></span>Lưu tin
 		                        </a>
@@ -36,7 +31,7 @@
 		    <div>
 	            <div class="breadcrumb">
 	                <div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
-	                    <a href="../tin-tuc.html" itemprop="url" title="Th&#244;ng tin Địa ốc"><span itemprop="title">Thông tin Địa ốc</span></a>&raquo;            
+	                    <a href="tin-tuc.html" itemprop="url" title="Th&#244;ng tin Địa ốc"><span itemprop="title">Thông tin Địa ốc</span></a>&raquo;            
 	                </div>
 	                <div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
 	                    <a href="<?php echo $link_1 ?>" itemprop="url" title="<?php echo $parent_category_name ?>"><span itemprop="title"><?php echo $parent_category_name ?></span></a>&raquo;            
@@ -61,11 +56,6 @@
 		        <div class="left">
 		            <div class="email_print">
 		                <ul>
-		                    <li>
-		                        <a href="danh-thue-nha-tren-700-trieu-dong-bo-tai-chinh-giai-thich-the-nao-i70259/ban-in.html">
-		                            <span class="ico_16 ico_print_16"></span>Bản in
-		                        </a>
-		                    </li>
 		                    <li>
 		                        <a href="javascript:void(0)" class="itemsaved">
 		                            <span class="ico_16 ico_save_2_16"></span>Lưu tin

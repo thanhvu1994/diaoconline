@@ -42,10 +42,7 @@ class Categories extends CI_Model {
 	    }
 	    $data_insert['created_date'] = gmdate('Y-m-d H:i:s', time()+7*3600);
 	    $data_insert['update_date'] = gmdate('Y-m-d H:i:s', time()+7*3600);
-	    // $data_insert['slug'] = $this->generateSlug($data_insert['category_name']);
-        // if (isset($data_insert['category_name_en'])) {
-        //     $data_insert['slug_en'] = $this->generateSlug($data_insert['category_name_en']);
-        // }
+
 	    $data_insert['type_level'] = $type_level;
 	    return $this->db->insert('categories', $data_insert);
 	}
@@ -63,18 +60,30 @@ class Categories extends CI_Model {
 	    	}
 	    }
 	    $data_insert['update_date'] = gmdate('Y-m-d H:i:s', time()+7*3600);
-        // $data_insert['slug'] = $this->generateSlug($data_insert['category_name']);
-        // if (isset($data_insert['category_name_en'])) {
-        //     $data_insert['slug_en'] = $this->generateSlug($data_insert['category_name_en']);
-        // }
+
         if (!isset($data_insert['is_featured'])) {
             $data_insert['is_featured'] = 0;
         }
 	    $data_insert['type_level'] = $type_level;
 
+        $this->updateAllChild($id, $type_level);
 	    $this->db->where('id', $id);
         $this->db->update('categories', $data_insert);
 	}
+
+    public function updateAllChild($id, $type_level) {
+        $query = $this->db->query("SELECT * FROM ci_categories WHERE parent_id = ".$id." ORDER BY created_date desc");
+        $childs = $query->result('Categories');
+
+        if (count($childs) > 0) {
+            foreach ($childs as $child) {
+                $data_update['type_level'] = (int)$type_level + 1;
+                $this->updateAllChild($child->id, $data_update['type_level']);
+                $this->db->where('id', $child->id);
+                $this->db->update('categories', $data_update);
+            }
+        }
+    }
 
 	public function rChilds($parent_id, &$items, $level, $id, $type) {
         $block_level = 2;

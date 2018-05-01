@@ -4,9 +4,10 @@
 <!-- Mirrored from diaoconline.vn/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Apr 2018 07:19:38 GMT -->
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
 <head>
-    <link rel="icon" href="http://www.diaoconline.vn/favicon.ico" type="image/x-icon">
-    <link rel="shortcut icon" href="http://www.diaoconline.vn/favicon.ico" type="image/x-icon">
-    <title>Cổng thông tin và giao dịch nhà đất - DiaOcOnline</title>
+    <title><?php echo (isset($title))? $title.' - '.$this->settings->get_param('defaultPageTitle') : $this->settings->get_param('defaultPageTitle'); ?></title>
+    <meta name="description" content="<?php echo (isset($description))? $description.' - '.$this->settings->get_param('defaultPageTitle') : $this->settings->get_param('defaultPageTitle'); ?>">
+    <link rel="icon" href="<?php echo base_url($this->settings->get_param('favicon')) ?>" type="image/x-icon"/>
+    <link rel="shortcut icon" href="<?php echo base_url($this->settings->get_param('favicon')) ?>" type="image/x-icon"/>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link href="<?php echo base_url('themes/website/css/reset.css')?>" rel="stylesheet" type="text/css" />
     <link href="<?php echo base_url('themes/website/css/Member.css')?>" rel="stylesheet" type="text/css" />

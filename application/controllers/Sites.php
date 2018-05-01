@@ -36,6 +36,8 @@ class Sites extends Front_Controller {
                     $this->bdsDetail($slug);
                 } elseif ($model_slug->type == 'province') {
                     $this->bdsProvince($slug);
+                } elseif ($model_slug->type == 'cat_new') {
+                    $this->categoryIndex($slug);
                 }
             } else {
                 redirect('sites', 'refresh');
@@ -75,6 +77,33 @@ class Sites extends Front_Controller {
         $this->load->view('layouts/index', $data);
     }
 
+    private function categoryIndex($slug) {
+        $data['title'] = 'Tin tức';
+        $data['description'] = 'Tin tức';
+
+        $data['template'] = 'news/layout';
+
+        $category_parent = $this->categories->get_model(['slug' => $slug, 'type' => 'news']);
+        $arr_cat = [0];
+        $this->categories->getArrayChild($category_parent->id, $arr_cat);
+        $num = 2;
+        $data['active'] = 0;
+        $condition = 'WHERE category_id IN ('.implode(',', $arr_cat).')';
+        $arr_condition = $arr_cat;
+        $data['parent_category_name'] = $category_parent->category_name;
+        $data['link_1'] = 'javascript:void(0)';
+        $query = $this->db->query("SELECT * FROM ci_news ".$condition." ORDER BY created_date desc");
+        $this->paginationNews($data, $query, $arr_condition, base_url($slug.'.html'), $num, 'or');
+
+        if ($this->news->countNews($query) == 1) {
+            $data['template_sub'] = 'news/detail';
+        } else {
+            $data['template_sub'] = 'news/cat_news';
+        }
+
+        $this->load->view('layouts/index', $data);
+    }
+
     private function categoryNew($slug_parent, $slug) {
         $data['title'] = 'Tin tức';
         $data['description'] = 'Tin tức';
@@ -107,8 +136,8 @@ class Sites extends Front_Controller {
         $this->load->view('layouts/index', $data);
     }
 
-    private function paginationNews(&$data, $query, $arr_condition, $url, $num) {
-        $config['base_url'] = base_url($url);
+    private function paginationNews(&$data, $query, $arr_condition, $url, $num, $type = 'and') {
+        $config['base_url'] = $url;
         $config['total_rows'] = $this->news->countNews($query);
         $config['per_page'] = PAGINATION_FE;
         $config['uri_segment'] = 2;
@@ -131,7 +160,13 @@ class Sites extends Front_Controller {
         $page = ($this->uri->segment($num)) ? $this->uri->segment($num) : 1;
         $page = $config['per_page'] * ($page-1);
 
-        $data['news'] = $this->news->getNews($config["per_page"], $page, $arr_condition);
+        if ($type == 'or') {
+            $query = $this->db->query("SELECT * FROM ci_news WHERE category_id in (".implode(',', $arr_condition).") LIMIT ".$page.','.$config["per_page"]);
+
+            $data['news'] = $query->result('News');
+        } else {
+            $data['news'] = $this->news->getNews($config["per_page"], $page, $arr_condition);
+        }
         $data["links"] = $this->pagination->create_links();
     }
 
