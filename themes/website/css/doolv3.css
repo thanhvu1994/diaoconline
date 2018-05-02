@@ -286,9 +286,11 @@ padding:10px 20px;
 	float:left;
 }
 #home_search .search_form .propertise_type {
-	width:608px;
+	width:100%;
 }
-
+#home_search .search_form .divUni-2 .wid .selector, #home_search .search_form .divUni-2 .wid .selector span {
+    width: 100% !important;
+}
 #home_search .search_form .propertise_type .selector {
 	margin-right:2px;
 }
