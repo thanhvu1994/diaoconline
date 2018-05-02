@@ -27,7 +27,6 @@ class User extends MY_Controller {
 
         if (isset($_POST['Users'])) {
             $data_update = $_POST['Users'];
-            $data_update['full_name'] = $data_update['last_name'] .' '. $data_update['first_name'];
             $data_update['update_date'] = gmdate('Y-m-d H:i:s', time()+7*3600);
             $this->db->where('id', $id);
             $this->db->update('users', $data_update);

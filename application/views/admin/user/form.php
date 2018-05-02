@@ -16,9 +16,15 @@
             <?php echo form_open_multipart($link_submit, ['class' => 'form-horizontal']); ?>
                 <div class="col-sm-6 col-xs-12">
                     <div class="form-group">
-                        <label class="col-md-12">Họ</label>
+                        <label class="col-md-12">Họ Tên</label>
                         <div class="col-md-12">
-                            <input type="text" class="form-control" value="<?php echo (isset($model)) ? $model->last_name : ''?>" name="Users[last_name]">
+                            <input type="text" class="form-control" value="<?php echo (isset($model)) ? $model->full_name : ''?>" name="Users[full_name]">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-12">Ngày Sinh</label>
+                        <div class="col-md-12">
+                            <input type="date" class="form-control" value="<?php echo (isset($model)) ? $model->birth_date : ''?>" name="Users[birth_date]">
                         </div>
                     </div>
                     <div class="form-group">
@@ -37,25 +43,61 @@
                                 }
                             ?>
                             <div class="col-md-2">
-                                <input type="radio" name="Users[gender]" value="Nam" <?php echo $check_nam?>> Nam
+                                <input style="height: 29px" type="radio" name="Users[gender]" value="Nam" <?php echo $check_nam?>> Nam
                             </div>
                             <div class="col-md-2">
-                                <input type="radio" name="Users[gender]" value="Nữ" <?php echo $check_nu?>> Nữ
+                                <input style="height: 29px" type="radio" name="Users[gender]" value="Nữ" <?php echo $check_nu?>> Nữ
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-xs-12">
-                    <div class="form-group">
-                        <label class="col-md-12">Tên</label>
-                        <div class="col-md-12">
-                            <input type="text" class="form-control" value="<?php echo (isset($model)) ? $model->first_name : ''?>" name="Users[first_name]">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-md-12">Email</label>
                         <div class="col-md-12">
                             <input type="text" class="form-control" value="<?php echo (isset($model)) ? $model->email : ''?>" name="Users[email]">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-12">Điện Thoại</label>
+                        <div class="col-md-12">
+                            <input type="text" class="form-control" value="<?php echo (isset($model)) ? $model->phone_number : ''?>" name="Users[phone_number]">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-12">Di Động</label>
+                        <div class="col-md-12">
+                            <input type="text" class="form-control" value="<?php echo (isset($model)) ? $model->mobile_number : ''?>" name="Users[mobile_number]">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label class="col-md-12">Địa Chỉ</label>
+                        <div class="col-md-12">
+                            <input type="text" class="form-control" value="<?php echo (isset($model)) ? $model->address : ''?>" name="Users[address]">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-12">Quận/Huyện</label>
+                        <div class="col-md-12">
+                            <input type="text" class="form-control" value="<?php echo (isset($model)) ? $model->district : ''?>" name="Users[district]">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-12">Tỉnh/Thành Phố</label>
+                        <div class="col-md-12">
+                            <input type="text" class="form-control" value="<?php echo (isset($model)) ? $model->city : ''?>" name="Users[city]">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-12">Công Ty</label>
+                        <div class="col-md-12">
+                            <input type="text" class="form-control" value="<?php echo (isset($model)) ? $model->company : ''?>" name="Users[company]">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-12">Website</label>
+                        <div class="col-md-12">
+                            <input type="text" class="form-control" value="<?php echo (isset($model)) ? $model->website : ''?>" name="Users[website]">
                         </div>
                     </div>
                 </div>

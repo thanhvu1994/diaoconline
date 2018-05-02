@@ -54,6 +54,12 @@
                 </div>
             </div>
             <div class="details_other">
+                <div class="item thongtinkhac" style="float: inherit; width:100%;">
+                    <h4><span>Vị trí</span></h4>
+                    <div id="map"></div>
+                </div>
+            </div>
+            <div class="details_other">
                 <div class="item thongtinkhac" id="thongtinkhac">
                     <h4><span>Đặc điểm bất động sản</span></h4>
                     <table id="tbl3">
@@ -157,6 +163,10 @@
             <div class="clear"></div>
         </div>
     </div>
+    <?php
+        $coordi = json_decode($bds->coordinate);
+    ?>
+
     <?php $this->load->view('bds/sidebar'); ?>
 </div>
 
@@ -166,3 +176,89 @@
     Galleria.run('#myGallery');
 }());
 </script>
+<script>
+    // Note: This example requires that you consent to location sharing when
+    // prompted by your browser. If you see the error "The Geolocation service
+    // failed.", it means you probably did not give permission for the browser to
+    // locate you.
+    var map, infoWindow;
+    function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: {lat: -34.397, lng: 150.644},
+            zoom: 15
+        });
+        infoWindow = new google.maps.InfoWindow;
+
+        <?php if(!empty($coordi)): ?>
+            var myLatLng = {lat: <?php echo $coordi[0]; ?>, lng: <?php echo $coordi[1]; ?>};
+
+            var marker = new google.maps.Marker({
+                position: myLatLng,
+                map: map,
+                title: '<?php echo $bds->name; ?>'
+            });
+        <?php endif; ?>
+
+        <?php if(!empty($coordi)): ?>
+        var pos = {lat: <?php echo $coordi[0]; ?>, lng: <?php echo $coordi[1]; ?>};
+        map.setCenter(pos);
+        <?php else: ?>
+        // Try HTML5 geolocation.
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                var pos = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                };
+                map.setCenter(pos);
+            }, function() {
+                handleLocationError(true, infoWindow, map.getCenter());
+            });
+        } else {
+            // Browser doesn't support Geolocation
+            handleLocationError(false, infoWindow, map.getCenter());
+        }
+        <?php endif; ?>
+
+        var marker;
+
+        function placeMarker(location) {
+            if ( marker ) {
+                marker.setPosition(location);
+            } else {
+                marker = new google.maps.Marker({
+                    position: location,
+                    map: map
+                });
+            }
+        }
+
+        google.maps.event.addListener(map, 'click', function(event) {
+            placeMarker(event.latLng);
+
+            document.getElementById("latitude").value = event.latLng.lat();
+            document.getElementById("longtitude").value = event.latLng.lng();
+        });
+    }
+
+    function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+        infoWindow.setPosition(pos);
+        infoWindow.setContent(browserHasGeolocation ?
+            'Error: The Geolocation service failed.' :
+            'Error: Your browser doesn\'t support geolocation.');
+        infoWindow.open(map);
+    }
+</script>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDz-btcJ-FgJzE_KLpn_EAdvbhkbRRrPMg&callback=initMap">
+</script>
+<style>
+    #map {
+        margin-top: 10px;
+        height: 400px;
+        width: 100%;
+    }
+    .gallery {
+        display: inline-block;
+    }
+</style>
