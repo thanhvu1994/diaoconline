@@ -89,7 +89,7 @@ class Posts extends CI_Model {
 
         if (count($categories) > 0) {
             foreach ($categories as $category) {
-                $url = ''.$category->slug.'c.html';
+                $url = $category->getUrlCustom(['slug' => $category->slug]);
                 $result[$url] = 'Danh mục: '.$category->category_name;
             }
         }
@@ -99,7 +99,7 @@ class Posts extends CI_Model {
         $result['tin-tuc.html'] = 'Trang :Tổng hợp Tin tức';
         if (count($news) > 0) {
             foreach ($news as $new) {
-                $url = $new->slug.'n.html';
+                $url = $new->getNewsUrl();
                 $result[$url] = 'Tin Tức: '.$new->title;
             }
         }

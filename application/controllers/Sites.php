@@ -482,4 +482,22 @@ class Sites extends Front_Controller {
 
         $this->load->view('layouts/index', $data);
     }
+
+    public function detailPage($slug) {
+        $data['template'] = 'pages/detail';
+
+        $page = $this->posts->get_model(['slug' => $slug]);
+        $data['page'] = $page;
+        if (count($page) > 0) {
+            $data['title'] = $page->title;
+            $data['description'] = $page->description;
+
+            $pages = $this->posts->get_model();
+            $data['pages'] = $pages;
+
+            $this->load->view('layouts/index', $data);
+        } else {
+            redirect('/', 'refresh');
+        }
+    }
 }
