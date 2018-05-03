@@ -7,7 +7,7 @@ if (count($bds) > 0) :?>
                 <div class="group_real">
                     <div class="headline_title_1 rounded_style_5 rounded_box">
                         <ul class="headline_tab">
-                            <li class="actived"><span class="L"></span><a href="sieu-thi/loc7638.html?noibat=1">Tài sản nổi bật</a><span class="R"></span></li>
+                            <li class="actived"><span class="L"></span><a href="<?php echo base_url('dia-oc.html'); ?>">Tài sản nổi bật</a><span class="R"></span></li>
                         </ul>
                     </div>
                     <ul class="listing_1">
@@ -19,15 +19,15 @@ if (count($bds) > 0) :?>
                                     <img src="<?php echo $row->getFirstImage() ?>" width="120" height="120" alt="<?php echo $row->name ?>"/></a></div>
                                     <div class="posted_info">
                                         <h2><a style="color: #b31f24;" href="<?php echo $row->getUrl() ?>"><?php echo $row->name ?></a></h2>
-                                        <span class="location"><a class="link-ext" href="ban-villa-biet-thu-c1/dong-nai-t53/nhon-trach-q638.html">Nhơn Trạch</a>,
-                                        <a class="link-ext" href="ban-villa-biet-thu-c1/dong-nai-t53.html">Đồng Nai</a></span><br />
-                                        <span class="price">4 tỷ 800 triệu</span>
+                                        <span class="location"><a class="link-ext" href="<?php echo base_url('dia-oc.html'); ?>"><?php echo $row->getDistrict(); ?></a>,
+                                        <a class="link-ext" href="<?php echo base_url('dia-oc.html'); ?>"><?php echo $row->getProvince(); ?></a></span><br />
+                                        <span class="price"><?php echo $row->getPrice(); ?></span>
                                     </div>
                                 </div>
                             </li>
                         <?php endforeach ?>
                     </ul>
-                    <a class="view_all" href="sieu-thi/loc7638.html?noibat=1">Xem tất cả</a>
+                    <a class="view_all" href="<?php echo base_url('dia-oc.html'); ?>">Xem tất cả</a>
                 </div>
             </div>
         </div>
