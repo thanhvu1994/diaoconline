@@ -38,9 +38,10 @@ class Sites extends Front_Controller {
                     $this->bdsProvince($slug);
                 } elseif ($model_slug->type == 'cat_new') {
                     $this->categoryIndex($slug);
-                } elseif ($model_slug->type == 'page') {
-                    $this->detailPage($slug);
-                }
+                } 
+                // elseif ($model_slug->type == 'page') {
+                //     $this->detailPage($slug);
+                // }
             } else {
                 redirect('sites', 'refresh');
             }
@@ -200,20 +201,20 @@ class Sites extends Front_Controller {
 
     ////////////// End page news /////////////
 
-    private function detailPage($slug){
-        $data['template'] = 'sites/page';
-        $page = $this->posts->get_model(['slug' => $slug]);
+    // private function detailPage($slug){
+    //     $data['template'] = 'sites/page';
+    //     $page = $this->posts->get_model(['slug' => $slug]);
 
-        if (count($page) > 0) {
-            $data['page'] = $page;
-            $data['title'] = $page->title;
-            $data['description'] = $page->description;
+    //     if (count($page) > 0) {
+    //         $data['page'] = $page;
+    //         $data['title'] = $page->title;
+    //         $data['description'] = $page->description;
 
-            $this->load->view('layouts/index', $data);
-        }else{
-            redirect('sites/index', 'refresh');
-        }
-    }
+    //         $this->load->view('layouts/index', $data);
+    //     }else{
+    //         redirect('sites/index', 'refresh');
+    //     }
+    // }
 
     ////////////// Page bds /////////////
     private function bds($slug) {
