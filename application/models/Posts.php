@@ -94,6 +94,8 @@ class Posts extends CI_Model {
             }
         }
 
+        $result['dia-oc.html'] = 'Trang :Tổng hợp địa ốc';
+
         $query = $this->db->query("SELECT * FROM ci_news ORDER BY title asc");
         $news =  $query->result('News');
         $result['tin-tuc.html'] = 'Trang :Tổng hợp Tin tức';
