@@ -12,7 +12,7 @@
                 </div>
             </div>
         </div>
-        <div class="wrap margin_bottom">
+        <div id="form-new-bds" class="wrap margin_bottom">
             <div class="col_160">
                 <div id="panel">
                     <div class="panel_block active">
@@ -49,7 +49,7 @@
             <div class="col_790 margin_left">
                 <div class="box">
                     <div class="headline_11"><h2>
-                            ĐĂNG TÀI SẢN MỚI
+                            Tài sản
                         </h2></div>
 
                     <form id='form-bds' action="#" method="post" class="form_style_3" enctype="multipart/form-data">
@@ -300,10 +300,12 @@
                                                     $utilities = json_decode($property->utilities);
                                                 ?>
                                                 <li><label>Các tiện ích</label></li>
-                                                <?php foreach($this->utilities->getModelArray() as $key => $type): ?>
-                                                    <li class="check"><input <?php echo (in_array($type['id'], $utilities))? 'checked' : ''; ?> name="bds[utilities][]" id="uti_<?php echo $key; ?>" value="<?php echo $type['id']; ?>" type="checkbox" />
-                                                        <label for="uti_<?php echo $key; ?>"><?php echo $type['name']; ?></label></li>
-                                                <?php endforeach; ?>
+                                                <?php if($utilities): ?>
+                                                    <?php foreach($this->utilities->getModelArray() as $key => $type): ?>
+                                                        <li class="check"><input <?php echo (in_array($type['id'], $utilities))? 'checked' : ''; ?> name="bds[utilities][]" id="uti_<?php echo $key; ?>" value="<?php echo $type['id']; ?>" type="checkbox" />
+                                                            <label for="uti_<?php echo $key; ?>"><?php echo $type['name']; ?></label></li>
+                                                    <?php endforeach; ?>
+                                                <?php endif; ?>
                                             </ul>
                                         </fieldset>
                                     </div>

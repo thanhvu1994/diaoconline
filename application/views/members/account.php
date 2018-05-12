@@ -24,7 +24,7 @@
         </div>
 
 
-        <div class="wrap margin_bottom">
+        <div id="personal" class="wrap margin_bottom">
             <div class="col_160">
                 <div id="panel">
                     <div class="panel_block active">
@@ -144,7 +144,7 @@
                                                 <label>Điện thoại</label>
                                                 <div class="tel">
                                                     <input class="input_text" id="Mobile1" maxlength="10" name="Mobile1" placeholder="Điện thoại bàn" type="text" value="<?php echo $user->phone_number; ?>" />
-                                                    <input class="input_text" id="Mobile2" maxlength="30" name="Mobile2" placeholder="Di động" type="text" value="<?php echo $user->mobile_number; ?>" />
+                                                    <input class="input_text" id="Mobile3" maxlength="30" name="Mobile2" placeholder="Di động" type="text" value="<?php echo $user->mobile_number; ?>" />
                                                 </div>
                                             </li>
                                             <li>
