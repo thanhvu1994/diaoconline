@@ -22,7 +22,7 @@
                 </div>-->
             </div>
         </div>
-        <div class="wrap margin_bottom">
+        <div id="form-new-bds" class="wrap margin_bottom">
             <div class="col_160">
                 <div id="panel">
                     <div class="panel_block active">
@@ -294,7 +294,7 @@
                                                         <?php endfor; ?>
                                                     </select>
                                                 </li>
-                                                <li><label>Các tiện ích</label></li>
+                                                <li id="ultility"><label>Các tiện ích</label></li>
                                                 <?php foreach($this->utilities->getModelArray() as $key => $type): ?>
                                                     <li class="check"><input  name="bds[utilities][]" id="uti_<?php echo $key; ?>" value="<?php echo $type['id']; ?>" type="checkbox" />
                                                         <label for="uti_<?php echo $key; ?>"><?php echo $type['name']; ?></label></li>

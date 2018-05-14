@@ -1,0 +1,273 @@
+#login_board{
+    padding-left: 30%;
+}
+#login_board .center{
+    width: 65%;
+}
+@media only screen and (max-width: 768px) {
+    .wrap{
+        width: 100%;
+    }
+    #login_board{
+        padding-left: 20%;
+    }
+    #login_board .center{
+        width: 85%;
+    }
+    #register .left, #register .right{
+        width: 98%;
+    }
+    #register .rounded_box .body{
+        padding-left: 10%;
+    }
+    #panel .panel_block{
+        width: 100%;
+    }
+    #personal .col_160, #form-new-bds .col_160,  #form-new-bds .col_790, #form-new-bds .col_509, #form-new-bds .col_245, #personal .col_790{
+        width: 100%;
+    }
+    #personal .col_790, #personal .col_245{
+        margin-left: 0px !important;
+    }
+    #post_info_2 label {
+        width: 115px;
+        text-align: right;
+        padding-right: 10px;
+    }
+    #ultility{
+        display: inline !important;
+    }
+    #post_info_2 .check{
+        width: 150px;
+        display: inline-flex;
+    }
+    #post_info_2 .check label{
+        text-align: left;
+    }
+}
+@media only screen and (max-width: 480px) {
+    .wrap{
+        width: 100%;
+    }
+    #login_board{
+        padding-left: inherit;
+    }
+    #login_board .center{
+        width: 100%;
+    }
+    #login_board label{
+        width: 60px;
+    }
+    #login_board input{
+        width: 240px;
+    }
+    #login_board .btn{
+        padding-left: 70px;
+    }
+    #register .left, #register .right{
+        width: 94%;
+    }
+    #register .rounded_box .body{
+        padding-left: 10px;
+    }
+    #register label{
+        width: 90px;
+    }
+    #register input{
+        width: 180px;
+    }
+    #selectCity{
+        width: 188px !important;
+    }
+    #DistrictList{
+        width: 188px !important;
+    }
+    #register select:not(#selectCity):not(#DistrictList){
+        width: 60px !important;
+    }
+    #register .gender{
+        width: 180px;
+    }
+    #Mobile1{
+        width: 180px !important;
+    }
+    #Mobile2{
+        width: 180px !important;
+        margin-left: 100px !important;
+        margin-top: 10px !important;
+    }
+    #Mobile3{
+        width: 180px !important;
+        margin-left: 80px !important;
+        margin-top: 10px !important;
+    }
+    #register .disclaimer {
+        margin-left: 30px;
+    }
+    #register li.btn {
+        padding-left: 80px;
+    }
+    #register .disclaimer label {
+        width: 250px;
+    }
+    #city{
+        margin-bottom: 20px;
+    }
+    #personal label{
+        width: 80px !important;
+    }
+    #personal input{
+        width: 240px !important;
+    }
+    #personal select{
+        width: 80px !important;
+    }
+    #form-new-bds .col_790{
+        margin-left: 0px;
+    }
+    #form-new-bds #post_info_1 ul li label:first-child, #form-new-bds #post_info_2 ul li label:first-child{
+        text-align: center;
+        width: 100% !important;
+    }
+    #form-new-bds #post_info_2{
+        margin-left: 0px;
+    }
+    #form-new-bds label{
+        width: 130px;
+    }
+    #form-new-bds .option{
+        clear: both;
+    }
+    #form-new-bds .option label{
+        width: 90% !important;
+        text-align: left;
+    }
+    #form-new-bds select{
+        width: 100% !important;
+        margin-bottom: 10px;
+        margin-right: 0px;
+    }
+    #post_info_1 .location .select {
+        width: 100% !important;
+        height: auto;
+        position: static;
+    }
+    #form-new-bds input:not([type=radio]):not([type=checkbox]){
+        width: calc(97% + 2px) !important;
+        margin-bottom: 10px;
+        margin-right: 0px;
+    }
+    #form-new-bds #map{
+        width: 100%;
+    }
+    #form-new-bds .price{
+        float: none;
+    }
+    #form-new-bds .price p{
+        padding-left: 10px;
+    }
+    #form-new-bds .living_area label, #form-new-bds .living_area span, #form-new-bds .total_area label, #form-new-bds .total_area span, #form-new-bds .used_area label, #form-new-bds .used_area span{
+        width: 100% !important;
+        text-align: center !important;
+    }
+    #form-new-bds span{
+        padding: 0 !important;
+    }
+    #form-new-bds .check{
+        width: 100px;
+    }
+    #form-new-bds .check label{
+        width: 60% !important;
+    }
+    #post_info_3 .headline_text{
+        width: inherit;
+        margin-left: 0px;
+    }
+    #post_info_3 textarea{
+        width: calc(97% + 3px) !important;
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+    #post_info_6 .content{
+        width: inherit !important;
+        margin-left: 0px !important;
+    }
+    #personal .short_info{
+        width: 60% !important;
+    }
+}
+@media only screen and (max-width: 360px) {
+    .wrap{
+        width: 100%;
+    }
+    #login_board{
+        padding-left: inherit;
+    }
+    #login_board .center{
+        width: 100%;
+    }
+    #login_board label{
+        width: 60px;
+    }
+    #login_board input{
+        width: 200px;
+    }
+    #login_board .btn{
+        padding-left: 20px;
+    }
+    #register input{
+        width: 150px;
+    }
+    #register .disclaimer label {
+        width: 230px;
+    }
+    #selectCity{
+        width: 158px !important;
+    }
+    #DistrictList{
+        width: 158px !important;
+    }
+    #Mobile1{
+        width: 150px !important;
+    }
+    #Mobile2{
+        width: 150px !important;
+        margin-left: 100px !important;
+        margin-top: 10px !important;
+    }
+    #Mobile3{
+        width: 150px !important;
+        margin-left: 60px !important;
+        margin-top: 10px !important;
+    }
+    #register select:not(#selectCity):not(#DistrictList){
+        width: 50px !important;
+    }
+    #personal label{
+        width: 60px !important;;
+    }
+    #personal input{
+        width: 210px !important;;
+    }
+    #personal select{
+        width: 69px !important;;
+    }
+    #form-new-bds input:not([type=radio]):not([type=checkbox]) {
+        width: calc(96% + 3px) !important;
+        margin-bottom: 10px;
+        margin-right: 0px;
+    }
+}
+@media only screen and (max-width: 320px) {
+    #register label{
+        width: 70px;
+    }
+    #register .disclaimer label {
+        width: 200px;
+    }
+    #Mobile2{
+        width: 150px !important;
+        margin-left: 80px !important;
+        margin-top: 10px !important;
+    }
+}

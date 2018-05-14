@@ -211,7 +211,7 @@
                                             <input id="Address" maxlength="200" name="Users[address]" type="text" value="" />
                                         </li>
                                         <li><label>Tỉnh / Thành Phố</label>
-                                            <div class="dob">
+                                            <div class="dob" id="city">
                                                 <?php
                                                     $string = read_file('./application/models/vietnam_provinces_cities.json');
                                                     $cities = json_decode($string, true);
@@ -260,7 +260,7 @@
 
                     <div id="benefit" class="rounded_style_2 rounded_box">
                         <div class="body">
-                            <h4>Là thành viên chuyên trang DiaOcOnline.vn, bạn sẽ có cơ hội trải nghiệm các tiện ích khác biệt</h4>
+                            <h4>Là thành viên chuyên trang <?php echo site_url(); ?>, bạn sẽ có cơ hội trải nghiệm các tiện ích khác biệt</h4>
                             <ul>
                                 <li><span class="img_email"></span>Cập nhật thông tin địa ốc hàng tuần qua hệ thống e-newsletter.</li>
                                 <li><span class="img_post"></span>Các bài viết, thông tin tài sản quan tâm để dễ dàng truy cập lại khi cần thiết.</li>

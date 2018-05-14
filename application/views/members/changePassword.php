@@ -24,7 +24,7 @@
         </div>
 
 
-        <div class="wrap margin_bottom">
+        <div id="personal" class="wrap margin_bottom">
             <div class="col_160">
                 <div id="panel">
                     <div class="panel_block active">

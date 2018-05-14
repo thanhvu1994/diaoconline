@@ -27,6 +27,7 @@ class Bds extends CI_Model {
     	$this->load->model('district');
     	$this->load->model('wards');
     	$this->load->model('streets');
+    	$this->load->model('provinces');
 	    $this->load->database();
 		$this->load->helper('url');
     }
@@ -114,6 +115,18 @@ class Bds extends CI_Model {
 
             if ($model) {
                 return $model->district_name;
+            }
+        }
+
+        return '';
+    }
+
+    public function getProvince() {
+        if ($this->province_id) {
+            $model = $this->provinces->get_model(['id' => $this->province_id]);
+
+            if ($model) {
+                return $model->province_name;
             }
         }
 
