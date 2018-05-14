@@ -105,15 +105,15 @@ h1.title
 	overflow:visible;
 }
 
-#head_content span#logo{
+#head_content #logo{
 	float:left;
-	margin-top:4px;
-	background:url(../images/sprite_tet2018.png);
+	margin-top:3%;
+	/*background:url(../images/sprite_tet2018.png);*/
 	/*background-position:-215px -728px;  Tet */
 	/*background-position:-383px -728px;  Noel */
 	
 }
-#head_content span#logo a{
+#head_content #logo a{
 	/*background:url(../images/sprite.png);*/
 	text-indent:-9999px;
 	float:left;

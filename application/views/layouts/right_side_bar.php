@@ -1,4 +1,5 @@
-<div class="col_300 margin_left">
+<?php $class = $this->router->fetch_class() == 'sites' && $this->router->fetch_method() == 'index' ? 'margin_right' : 'margin_left' ?>
+<div class="col_300 <?php echo $class ?>">
 	<?php $ads = $this->banner->getAdsByLocation(SIDEBAR_ADVERTISEMENT); 
 	if (count($ads) > 0) :?>
 	<div id="position_2" class ='banner_300x250'>

@@ -9,6 +9,8 @@
     <link rel="icon" href="<?php echo base_url($this->settings->get_param('favicon')) ?>" type="image/x-icon"/>
     <link rel="shortcut icon" href="<?php echo base_url($this->settings->get_param('favicon')) ?>" type="image/x-icon"/>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <link href="<?php echo base_url('themes/website/css/reset.css')?>" rel="stylesheet" type="text/css" />
     <link href="<?php echo base_url('themes/website/css/Member.css')?>" rel="stylesheet" type="text/css" />
     <link href="<?php echo base_url('themes/website/css/general30c8.css?1419')?>" rel="stylesheet" type="text/css" />

@@ -1,6 +1,6 @@
 <div id="header" class="margin_bottom">
     <div id="head_content" class="wrap">
-        <span id="logo"><a href="<?php echo base_url() ?>" title="Về trang chủ DiaOcOnline.vn">Địa Ốc Online</a></span>
+        <a href="<?php echo base_url() ?>" title=""><img id="logo" src="<?php echo $this->settings->get_logoFE() ?>"></a>
         <div id="head_nav">
             <?php $menus = $this->categories->get_menuFE(HEADER_MENU);
             if (!empty($menus)) :?>
@@ -124,12 +124,12 @@
                 <div class="content default">
                     <ul>
                         <li class="login">
-                            <span class="login_ico ico_24 ico_login_24"></span>
-                            <a href="<?php echo base_url('dang-nhap.html'); ?>">Đăng nhập</a>
+                            
+                            <a href="<?php echo base_url('dang-nhap.html'); ?>"><i class="fa fa-user"></i> Đăng nhập</a>
                         </li>
                         <li class="register">
-                            <span class="register_ico ico_24 ico_register_24"></span>
-                            <a href="<?php echo base_url('dang-ky.html'); ?>" class="register">Đăng ký</a>
+                            
+                            <a href="<?php echo base_url('dang-ky.html'); ?>" class="register"><i class="fa fa-user-plus"></i> Đăng ký</a>
                         </li>
                     </ul>
                 </div>
