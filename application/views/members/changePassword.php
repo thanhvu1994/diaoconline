@@ -51,9 +51,9 @@
                             <li>
                                 <a href="<?php echo base_url('thanh-vien/tai-san-da-dang.html'); ?>">Tài sản đã đăng</a>
                             </li>
-                            <li>
+                            <!-- <li>
                                 <a href="<?php echo base_url('thanh-vien/tai-san-da-luu.html'); ?>">Tài sản đã lưu</a>
-                            </li>
+                            </li> -->
                             <li>
                                 <a href="<?php echo base_url('thanh-vien/tai-san-luu-xem-sau.html'); ?>">Tài sản lưu xem sau</a>
                             </li>

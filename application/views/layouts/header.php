@@ -107,7 +107,7 @@
                         </li>
                     <?php endforeach ?>
                 </ul>
-            <?php endif ?>
+            <?php endif;?>
         </div>
         <div id="acc_section">
             <div class="left_cn">
@@ -174,7 +174,6 @@
         <?php endif ?>
     </div>
 </div>
-
 <script>
     $('.top-menu-hidden i.drop-menu').click(function(){
         $('.menu-top').toggle('slow');

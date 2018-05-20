@@ -39,9 +39,9 @@
                             <li>
                                 <a href="<?php echo base_url('thanh-vien/tai-san-da-dang.html'); ?>">Tài sản đã đăng</a>
                             </li>
-                            <li>
+                            <!-- <li>
                                 <a href="<?php echo base_url('thanh-vien/tai-san-da-luu.html'); ?>">Tài sản đã lưu</a>
-                            </li>
+                            </li> -->
                             <li>
                                 <a href="<?php echo base_url('thanh-vien/tai-san-luu-xem-sau.html'); ?>">Tài sản lưu xem sau</a>
                             </li>
@@ -387,7 +387,7 @@
                                                         <p>Khi nhấn nút <strong>ĐĂNG MỚI TÀI SẢN</strong>, bạn đã xác nhận hoàn toàn đồng ý với những <a href="#" target="_blank"><strong>điều khoản thỏa thuận</strong></a></p></div></li>
                                                 <li>
                                                     <button type="submit" class="btn_2 btn-save-bds" name="<?php echo STATUS_BDS_PENDING; ?>"><span>ĐĂNG MỚI TÀI SẢN</span></button>
-                                                    <button type="submit" class="btn_2 btn-save-bds" name="<?php echo STATUS_BDS_DRAFT; ?>"><span>LƯU LẠI</span></button>
+                                                    <!-- <button type="submit" class="btn_2 btn-save-bds" name="<?php echo STATUS_BDS_DRAFT; ?>"><span>LƯU LẠI</span></button> -->
                                                     <a name="SubmitCancel" class="btn_3" href="<?php echo base_url('thanh-vien/tai-khoan-cua-toi.html'); ?>"><span>HỦY BỎ</span></a>
                                                     <input id="status" name="bds[status]" type="hidden" value="1" />
                                                 </li>
