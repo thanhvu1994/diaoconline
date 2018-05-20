@@ -1,4 +1,5 @@
 <link href="<?php echo base_url('themes/website/css/News.css') ?>" rel="stylesheet" type="text/css" />
+<link href="<?php echo base_url('themes/website/css/responsive.css')?>" rel="stylesheet" type="text/css" />
 <!-- <div class="col_240">
     <div id="top_news" class="margin_bottom">
         <div class="headline_title_1 rounded_style_5 rounded_box">
@@ -135,17 +136,17 @@
     <?php $new_slider = $this->news->getNewsHome(6, HEADER_NEWS); 
     if (count($new_slider) > 0) :?>
         <div id="sider" class="margin_bottom">
-            <div id="jslidernews" class="lof-slidecontent" style="width: 650px; height: 440px;">
+            <div id="jslidernews" class="lof-slidecontent" style="width: 100%">
                 <div class="preload">
                     <div>
                     </div>
                 </div>
-                <div class="main-slider-content" style="width: 650px; height: 440px;">
+                <div class="main-slider-content" style="width: 100%; height: 440px;">
                     <ul class="sliders-wrap-inner">
                         <?php foreach ($new_slider as $new): ?>
                             <li>
                                 <a href="<?php echo $new->getNewsUrl() ?>">
-                                    <img src="<?php echo base_url($new->featured_image); ?>" width="650" height="308" alt="<?php echo $new->title ?>"/>
+                                    <img src="<?php echo base_url($new->featured_image); ?>" height="308" alt="<?php echo $new->title ?>"/>
                                 </a>
                                 <div class="slide-item">
                                     <h1>
@@ -179,7 +180,7 @@
                     $news = $this->news->getNewsInMenu($child_id, 3); 
                     if (count($news) > 0) :
                         $slug_parent = $this->categories->getSlugParent($child_id) ?>
-                        <div class="news_form margin_bottom">
+                        <div class="news_form margin_bottom news_form_index">
                             <div class="headline_title_1 rounded_style_5 rounded_box">
                                 <h2 class="headline">
                                     <a href="<?php echo $this->categories->getUrlCustom(['slug_parent' => $slug_parent, 'slug' => $child['slug']]) ?>">

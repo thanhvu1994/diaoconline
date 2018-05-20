@@ -38,7 +38,7 @@ class Members extends Front_Controller {
 
     public function myAccount(){
         if(!isset($this->session->userdata['logged_in_FE'])){
-            redirect('sites', 'refresh');
+            redirect('/', 'refresh');
         }
 
         $info_login_fe = $this->session->userdata['logged_in_FE'];
@@ -87,7 +87,7 @@ class Members extends Front_Controller {
             $data['description'] = 'Tài Khoản :'.$user->full_name;
             $data['user'] = $user;
         }else {
-            redirect('sites/index', 'refresh');
+            redirect('/', 'refresh');
         }
         $this->load->model('billingAddress');
         $data['template'] = 'members/account';
@@ -96,7 +96,7 @@ class Members extends Front_Controller {
 
     public function changePassword(){
         if(!isset($this->session->userdata['logged_in_FE'])){
-            redirect('sites', 'refresh');
+            redirect('/', 'refresh');
         }
 
         $info_login_fe = $this->session->userdata['logged_in_FE'];
@@ -128,7 +128,7 @@ class Members extends Front_Controller {
             $data['description'] = 'Đổi mật khẩu tài khoản:'.$user->full_name;
             $data['user'] = $user;
         }else {
-            redirect('sites/index', 'refresh');
+            redirect('/', 'refresh');
         }
         $data['template'] = 'members/changePassword';
         $this->load->view('layouts/index', $data);
@@ -136,7 +136,7 @@ class Members extends Front_Controller {
 
     public function newProperty(){
         if(!isset($this->session->userdata['logged_in_FE'])){
-            redirect('sites', 'refresh');
+            redirect('/', 'refresh');
         }
 
         $info_login_fe = $this->session->userdata['logged_in_FE'];
@@ -191,7 +191,7 @@ class Members extends Front_Controller {
             $data['description'] = 'Đăng tài sản mới';
             $data['user'] = $user;
         }else {
-            redirect('sites/index', 'refresh');
+            redirect('/', 'refresh');
         }
 
         $data['template'] = 'members/newProperty';
@@ -200,7 +200,7 @@ class Members extends Front_Controller {
 
     public function property($code){
         if(!isset($this->session->userdata['logged_in_FE'])){
-            redirect('sites', 'refresh');
+            redirect('/', 'refresh');
         }
 
         $info_login_fe = $this->session->userdata['logged_in_FE'];
@@ -260,7 +260,7 @@ class Members extends Front_Controller {
                 $data['user'] = $user;
             }
         }else {
-            redirect('sites/index', 'refresh');
+            redirect('/', 'refresh');
         }
 
         $data['template'] = 'members/property';
@@ -329,7 +329,7 @@ class Members extends Front_Controller {
 
     public function postedProperty(){
         if(!isset($this->session->userdata['logged_in_FE'])){
-            redirect('sites', 'refresh');
+            redirect('/', 'refresh');
         }
 
         $info_login_fe = $this->session->userdata['logged_in_FE'];
@@ -343,7 +343,7 @@ class Members extends Front_Controller {
             $data['description'] = 'Tài sản đã đăng';
             $data['user'] = $user;
         }else {
-            redirect('sites/index', 'refresh');
+            redirect('/', 'refresh');
         }
 
         $data['template'] = 'members/postedProperty';
@@ -352,7 +352,7 @@ class Members extends Front_Controller {
 
     public function savedProperty(){
         if(!isset($this->session->userdata['logged_in_FE'])){
-            redirect('sites', 'refresh');
+            redirect('/', 'refresh');
         }
 
         $info_login_fe = $this->session->userdata['logged_in_FE'];
@@ -366,7 +366,7 @@ class Members extends Front_Controller {
             $data['description'] = 'Tài sản đã lưu';
             $data['user'] = $user;
         }else {
-            redirect('sites/index', 'refresh');
+            redirect('/', 'refresh');
         }
 
         $data['template'] = 'members/postedProperty';
@@ -428,5 +428,34 @@ class Members extends Front_Controller {
         }
 
         echo $result;
+    }
+
+    public function savedBds() {
+        if(!isset($this->session->userdata['logged_in_FE'])){
+            redirect('/', 'refresh');
+        }
+
+        $info_login_fe = $this->session->userdata['logged_in_FE'];
+        $query = $this->db->get_where('users', array('email' => $info_login_fe['email'], 'application_id' => FE));
+        $user = $query->row('1', 'Users');
+        if (count($user) > 0) {
+            $arr_bds = [0];
+            if($user->save_bds && !empty($user->save_bds)) {
+                $arr_bds = json_decode($user->save_bds, true);
+            }
+            
+            $query = $this->db->query("SELECT * FROM ci_bds WHERE id IN (".implode(',', $arr_bds).") ORDER BY created_date desc");
+			$bds_save = $query->result('Bds');
+            
+            $data['title'] = 'Tài sản lưu xem sau';
+            $data['description'] = 'Tài sản lưu xem sau';
+            $data['user'] = $user;
+            $data['bds_save'] = $bds_save;
+        }else {
+            redirect('/', 'refresh');
+        }
+
+        $data['template'] = 'members/saveBds';
+        $this->load->view('layouts/index', $data);
     }
 }

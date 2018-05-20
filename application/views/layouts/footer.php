@@ -1,11 +1,4 @@
-<style type="text/css">
-    .copyright .copyrightOnFooter-left p{
-        width: 40%;float: left; text-align: left; color: #8dccf2;
-    }
-    .copyright .copyrightOnFooter-right p{
-        width: 40%; float: left; text-align: left; color: #8dccf2;
-    }
-</style>
+<link href="<?php echo base_url('themes/website/css/responsive_footer.css')?>" rel="stylesheet" type="text/css" />
 <div id="footer">
     <div id="footer_top">
         <div id="bottom_menu" class="wrap">
@@ -29,42 +22,8 @@
                 endforeach;
             endif ?>
         </div>
-        <div class="wrap">
-            <div id="social_network" class="white_border_box rounded_box" style="width: 960px; text-align: center;">
-                <div class="content">
-                    <div class="like" style="width: 250px;">
-                        <h2>Hỗ trợ kỹ thuật</h2>
-                        <span class="phone"><?php echo $this->settings->get_param('companyCellPhone'); ?></span>
-                    </div>
-                    <div class="like" style="width: 200px; border-left: 1px solid #e1e1e1;">
-                        <h2>Hỗ trợ dịch vụ</h2>
-                        <a style="color: #007bc4; font-size: 12px; line-height: 18px;" href="http://adv.diaoconline.vn/AboutUs/hotrotructuyen.html">Liên hệ phòng kinh doanh</a>
-                    </div>
-                    <div class="join_network" style="width: 488px;">
-                        <h4 style="width: 236px; float: left;">KẾT NỐI VỚI CHÚNG TÔI TẠI: </h4>
-                        <ul style="width: 236px; padding: 10px 0 10px 10px;">
-                            <?php if (!empty($this->settings->get_param('facebook'))): ?>
-                                <li class="facebook"><a href="<?php echo $this->settings->get_param('facebook'); ?>" target="_blank">facebook</a></li>
-                            <?php endif ?>
-                            <?php if (!empty($this->settings->get_param('twitter'))): ?>
-                                <li class="twitter"><a href="<?php echo $this->settings->get_param('twitter'); ?>" target="_blank">twitter</a></li>
-                            <?php endif ?>
-                            <?php if (!empty($this->settings->get_param('youtube'))): ?>
-                                <li class="youtube"><a href="<?php echo $this->settings->get_param('youtube'); ?>" target="_blank">youtube</a></li>
-                            <?php endif ?>
-                            <?php if (!empty($this->settings->get_param('googleplus'))): ?>
-                                <li class="google"><a href="<?php echo $this->settings->get_param('googleplus'); ?>" target="_blank">google</a></li>
-                            <?php endif ?>
-                            <?php if (!empty($this->settings->get_param('linkedin'))): ?>
-                                <li class="linkedin"><a href="<?php echo $this->settings->get_param('linkedin'); ?>" target="_blank">linkedin</a></li>
-                            <?php endif ?>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
-    <div id="footer_bottom" style="height: 200px; background: #0071b5;;">
+    <div id="footer_bottom" style="background: #0071b5;;">
         <div id="foot_content" class="wrap">
             <div style="position: relative; float: right; width: 120px; padding-top: 10px;" id="bocongthuong"></div>
                 <?php $menus = $this->categories->get_menuFE(FOOTER_MENU_2);
@@ -88,6 +47,27 @@
                     </p>
                     <div class="copyrightOnFooter-right">
                         <?php echo $this->settings->get_param('copyrightOnFooter_right'); ?>
+                        <div id="social_network" style="float: right">
+                            <div class="join_network" style="border-left: none">
+                                <ul style="width: 236px; padding: 10px 0 10px 10px;">
+                                    <?php if (!empty($this->settings->get_param('facebook'))): ?>
+                                        <li class="facebook"><a href="<?php echo $this->settings->get_param('facebook'); ?>" target="_blank">facebook</a></li>
+                                    <?php endif ?>
+                                    <?php if (!empty($this->settings->get_param('twitter'))): ?>
+                                        <li class="twitter"><a href="<?php echo $this->settings->get_param('twitter'); ?>" target="_blank">twitter</a></li>
+                                    <?php endif ?>
+                                    <?php if (!empty($this->settings->get_param('youtube'))): ?>
+                                        <li class="youtube"><a href="<?php echo $this->settings->get_param('youtube'); ?>" target="_blank">youtube</a></li>
+                                    <?php endif ?>
+                                    <?php if (!empty($this->settings->get_param('googleplus'))): ?>
+                                        <li class="google"><a href="<?php echo $this->settings->get_param('googleplus'); ?>" target="_blank">google</a></li>
+                                    <?php endif ?>
+                                    <?php if (!empty($this->settings->get_param('linkedin'))): ?>
+                                        <li class="linkedin"><a href="<?php echo $this->settings->get_param('linkedin'); ?>" target="_blank">linkedin</a></li>
+                                    <?php endif ?>
+                                </ul>
+                        </div>
+                    </div>
                     </div>
                 </div>
             </div>

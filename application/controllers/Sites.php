@@ -43,7 +43,7 @@ class Sites extends Front_Controller {
                 //     $this->detailPage($slug);
                 // }
             } else {
-                redirect('sites', 'refresh');
+                redirect('/', 'refresh');
             }
         }
     }
@@ -57,7 +57,7 @@ class Sites extends Front_Controller {
                 $this->categoryNew($slug_parent, $slug);
             }
         } else {
-            redirect('sites', 'refresh');
+            redirect('/', 'refresh');
         }
     }
 
@@ -310,7 +310,7 @@ class Sites extends Front_Controller {
                         $data_insert['birth_date'] = date_format(date_create($birth_date), 'Y-m-d');
                     }
                     $this->users->set_model($data_insert);
-                    redirect('sites/login', 'refresh');
+                    redirect(base_url('dang-nhap.html'), 'refresh');
                 }
             }
         }
@@ -338,9 +338,8 @@ class Sites extends Front_Controller {
         $data['title'] = 'Đăng Nhập';
         $data['description'] = 'Đăng Nhập';
         $data['template'] = 'sites/login';
-
         if(isset($this->session->userdata['logged_in_FE'])){
-            redirect('sites', 'refresh');
+            redirect('/', 'refresh');
         }
 
         if (isset($_POST['Users'])) {
@@ -360,7 +359,7 @@ class Sites extends Front_Controller {
                     $this->session->set_userdata('remember_me', true);
                 }
                 
-                redirect('sites', 'refresh');
+                redirect('/', 'refresh');
             }else{
                 $data['error'] = 'Thông tin đăng nhập không hợp lệ.';
             }
@@ -374,7 +373,7 @@ class Sites extends Front_Controller {
         if(isset($this->session->userdata['logged_in_FE'])){
             $this->session->unset_userdata('logged_in_FE', $sess_array);
         }
-        redirect('sites', 'refresh');
+        redirect('/', 'refresh');
     }
 
     public function forgot() {
@@ -516,6 +515,38 @@ class Sites extends Front_Controller {
             $this->load->view('layouts/index', $data);
         } else {
             redirect('/', 'refresh');
+        }
+    }
+
+    public function saveBds() {
+        if (!$this->input->is_ajax_request()) {
+            exit('No direct script access allowed');
+        }
+
+        if(isset($this->session->userdata['logged_in_FE'])){
+            $info_login_fe = $this->session->userdata['logged_in_FE'];
+            $query = $this->db->get_where('users', array('email' => $info_login_fe['email'], 'application_id' => FE));
+            $user = $query->row('1', 'Users');
+
+            $id = isset($_POST['id']) ? $_POST['id'] : 0;
+
+            if(count($user) > 0) {
+                $arr_bds = [0];
+                if($user->save_bds && !empty($user->save_bds)) {
+                    $arr_bds = json_decode($user->save_bds, true);
+                }
+                $arr_bds[] = $id;
+                $arr_bds = array_unique($arr_bds);
+
+                $data_insert['save_bds'] = json_encode($arr_bds);
+                $this->db->where('id', $user->id);
+                $this->db->update('users', $data_insert);
+                echo '1';
+            } else {
+                echo '0';
+            }
+        } else {
+            echo '0';
         }
     }
 }

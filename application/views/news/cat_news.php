@@ -11,7 +11,7 @@
         <div>
             <div class="breadcrumb">
                 <div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
-                    <a href="../tin-tuc.html" itemprop="url" title="Th&#244;ng tin Địa ốc"><span itemprop="title">Thông tin Địa ốc</span></a>&raquo;            
+                    <a href="tin-tuc.html" itemprop="url" title="Th&#244;ng tin Địa ốc"><span itemprop="title">Thông tin Địa ốc</span></a>&raquo;            
                 </div>
                 <div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
                     <a href="<?php echo $link_1 ?>" itemprop="url" title="<?php echo $parent_category_name ?>"><span itemprop="title"><?php echo $parent_category_name ?></span></a>&raquo;            

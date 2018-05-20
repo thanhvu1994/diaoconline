@@ -20,10 +20,11 @@
                 <div class="listbox">
                     <?php if (count($all_bds) > 0):
                         foreach ($all_bds as $key => $row): 
+                            $count = $key + 1;
                             $class_name = '';
                             if ($key == 0 || $key % 3 == 0) {
                                 $class_name = 'first';
-                            } elseif ($key % 2 == 0) {
+                            } elseif ($count % 3 == 0) {
                                 $class_name = 'last';
                             }
                         ?>
@@ -61,7 +62,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <?php if ($key != 0 && $key % 2 == 0 || $key == count($all_bds) - 1): ?>
+                            <?php if ($count % 3 == 0 || $key == count($all_bds) - 1): ?>
                                 <div class="clear"></div>
                             <?php endif ?>
                         <?php endforeach;

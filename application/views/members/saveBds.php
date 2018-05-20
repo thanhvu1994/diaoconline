@@ -12,16 +12,6 @@
                         </p>
                     </div>
                 </div>
-                <!--<div class="alert margin_left">
-                    <ul>
-                        <li class="block new_mail"><a href="/thanh-vien/hop-thu/da-nhan" class="icon">THƯ </a>
-                            <a href="/thanh-vien/hop-thu/da-nhan">0 THƯ TỪ HỆ THỐNG</a> </li>
-                        <li class="block dealing"><a href="/thanh-vien/tai-san/dang-hien-thi" class="icon">TÀI SẢN ĐANG GIAO DỊCH</a>
-                            <a href="/thanh-vien/tai-san/dang-hien-thi">0 TS ĐANG GIAO DỊCH</a></li>
-                        <li class="block point last"><a href="javascript:void(0)" class="icon"></a>
-                            <a href="javascript:void(0)"><span id="UserPoint">0</span> ĐIỂM DOOL</a></li>
-                    </ul>
-                </div>-->
             </div>
         </div>
         <div id="personal" class="wrap margin_bottom">
@@ -62,27 +52,22 @@
                 </div>
             </div>
             <div class="col_790 margin_left">
-                <div id="propertise_displaying" class="box">
-                    <div  class="headline_11"><h2>TÀI SẢN ĐÃ ĐĂNG (<span id="countProper"><?php echo $countProperty; ?></span>)</h2></div>
+                <div id="propertise_displaying" class="box custom-save-bds">
+                    <div  class="headline_11"><h2>TÀI SẢN LƯU XEM SAU</h2></div>
                     <div class="body">
                         <div class="propertise_list unpaid">
                             <ul>
-                                <?php foreach($properties as $property): ?>
+                                <?php foreach($bds_save as $property): ?>
                                     <li id="<?php echo $property->code; ?>">
-                                        <div class="short_info">
-                                            <div class="img"><a href="<?php echo $property->getEditUrl(); ?>"><img src="<?php echo $property->getFirstImage(); ?>" width="75" height="75" alt="<?php echo $property->name; ?>" /></a></div>
+                                        <div class="short_info" style="width: 100% !important">
+                                            <div class="img"><a href="<?php echo $property->getUrl(); ?>"><img src="<?php echo $property->getFirstImage(); ?>" width="75" height="75" alt="<?php echo $property->name; ?>" /></a></div>
                                             <div class="text">
                                                 <span class="property_code">MSTS:<strong><?php echo $property->getCode(); ?></strong></span>
                                                 <br />
-                                                <h4><a href="<?php echo $property->getEditUrl(); ?>"><?php echo $property->name; ?></a></h4>
+                                                <h4><a href="<?php echo $property->getUrl(); ?>"><?php echo $property->name; ?></a></h4>
                                                 <span class="location"><?php echo $property->getDistrictAndProvince(); ?></span>
                                             </div>
                                         </div>
-                                        <div class="repair_post">
-                                            <span class="updated_date">Ngày tạo : <?php echo date('d/m/Y', strtotime($property->created_date)); ?></span><br />
-                                            <a href="<?php echo $property->getEditUrl(); ?>" class="repair"><span class="ico_16 ico_repair_16"></span>Chỉnh sửa</a><br />
-                                        </div>
-                                        <div class="remove"><a title="Ngừng đăng" href="javascript:void(0)" onclick="GetDataConfirm('/thanh-vien/xoa-tai-san.html/<?php echo $property->code; ?>','<?php echo $property->code; ?>');"><span class="ico_remove_11"></span></a></div>
                                     </li>
                                 <?php endforeach; ?>
                             </ul>

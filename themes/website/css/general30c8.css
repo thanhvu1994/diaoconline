@@ -472,7 +472,7 @@ span.dropdown_2 {
 	clear:both;
 }
 #social_network {
-	width:373px;
+	width:360px;
 }
 
 #social_network .like {
@@ -696,7 +696,7 @@ span.dropdown_2 {
 }
 
 #status, #home_search {
-	background:url(../images/bg.png);
+	/*background:url(../images/bg.png);*/
 	height:115px;
 	background-position:0 -439px;
 	float:left;
@@ -1488,7 +1488,7 @@ a.to-highlight:hover {
 }
 
 #home_search .search_form .home_search_input {
-	width:100%;
+	/*width:100%;*/
 	color:#7e7e7e;
 }
 

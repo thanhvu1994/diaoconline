@@ -281,11 +281,11 @@ class Bds extends CI_Model {
         $price = 0;
 
         if ($this->price < 1000000) {
-            $price = number_format($this->price).' VND';
+            $price = round($this->price,2).' VND';
         } elseif ($this->price < 1000000000) {
-            $price = ($this->price / 1000000000 * 100).' triệu';
+            $price = round(($this->price / 1000000000 * 100),2).' triệu';
         } else {
-            $price = ($this->price / 1000000000).' tỷ';
+            $price = round(($this->price / 1000000000),2).' tỷ';
         }
 
         return $price;

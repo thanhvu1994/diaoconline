@@ -124,7 +124,6 @@
                 <div class="content default">
                     <ul>
                         <li class="login">
-                            
                             <a href="<?php echo base_url('dang-nhap.html'); ?>"><i class="fa fa-user"></i> Đăng nhập</a>
                         </li>
                         <li class="register">
@@ -136,7 +135,54 @@
             <?php endif; ?>
         </div>
         <div class="post_propertise">
-            <a href="dang-nhap3a45.html">ĐĂNG TÀI SẢN CỦA BẠN</a>
+            <a href="dang-tai-san-moi.html">ĐĂNG TÀI SẢN CỦA BẠN</a>
         </div>
     </div>
 </div>
+<div id="header-hidden">
+    <div class="menu">
+        <div class="top-menu-hidden">
+            <i class="fa fa-bars drop-menu"></i>
+            <span>
+                <a href="<?php echo base_url() ?>" title="">
+                    <img id="logo" src="<?php echo $this->settings->get_logoFE() ?>">
+                </a>
+            </span>
+            <span id="btn-post-bds"><a href="dang-tai-san-moi.html">Đăng tin</a></span>    
+            <span style="float:right">
+                <a href="<?php echo isset($this->session->userdata['logged_in_FE']) ? base_url('thanh-vien/tai-khoan-cua-toi.html') : base_url('dang-nhap.html'); ?>">
+                    <i class="fa fa-user"></i>
+                </a>
+            </span>
+        </div>
+        <?php $menus = $this->categories->get_menuFE(HEADER_MENU);
+        if (!empty($menus)) :?>
+            <ul class="menu-top">
+                <?php foreach ($menus as $menu_id => $menu): ?>
+                    <li class="menu-parent">
+                        <a href="<?php echo !empty($menu['url']) ? base_url($menu['url']) : 'javascript:void(0)' ?>"><?php echo $menu['name'] ?></a>
+                        <?php if (!empty($menu['child'])): ?>
+                            <ul class="sub-menu">
+                            <?php foreach ($menu['child'] as $childs): ?>
+                                <li><a href="<?php echo !empty($childs['url']) ? base_url($childs['url']) : 'javascript:void(0)' ?>"><?php echo $childs['name'] ?></a></li>
+                            <?php endforeach ?>
+                            </ul>
+                        <?php endif ?>
+                    </li>
+                <?php endforeach ?>
+            </ul>
+        <?php endif ?>
+    </div>
+</div>
+
+<script>
+    $('.top-menu-hidden i.drop-menu').click(function(){
+        $('.menu-top').toggle('slow');
+    });
+    $('.menu-parent').click(function(){
+        if($(this).find('ul.sub-menu').length !== 0) {
+            $(this).find('ul.sub-menu').toggle('slow');
+            return false;
+        }
+    });
+</script>

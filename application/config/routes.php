@@ -56,8 +56,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'sites/index';
 $route['admin'] = 'admin/login';
 
-$route['(:any)p.html'] = 'sites/detailPage/$1';
-
 //Users
 $route['dang-ky.html'] = 'sites/register';
 $route['dang-nhap.html'] = 'sites/login';
@@ -77,6 +75,7 @@ $route['thanh-vien/quen-mat-khau.html'] = 'sites/forgot';
 $route['thanh-vien/dang-tai-san-moi.html'] = 'members/newProperty';
 $route['thanh-vien/tai-san-da-dang.html'] = 'members/postedProperty';
 $route['thanh-vien/tai-san-da-luu.html'] = 'members/savedProperty';
+$route['thanh-vien/tai-san-luu-xem-sau.html'] = 'members/savedBds';
 $route['thanh-vien/xoa-tai-san.html/(:any)'] = 'members/deleteProperty/$1';
 $route['thanh-vien/tai-san.html/(:any)'] = 'members/property/$1';
 
@@ -84,6 +83,8 @@ $route['(:any)/(:any).html'] = 'sites/actionLevelTwo/$1/$2';
 $route['(:any)/(:any).html/(:num)'] = 'sites/actionLevelTwo/$1/$2/$3';
 $route['(:any).html'] = 'sites/actionLevelOne/$1';
 $route['(:any).html/(:num)'] = 'sites/actionLevelOne/$1/$2';
+
+$route['(:any)-p.html'] = 'sites/detailPage/$1';
 
 // $route['tin-tuc.html/(:num)'] = 'newsSite/index/$1';
 // $route['(:any)n.html'] = 'newsSite/index/$1';

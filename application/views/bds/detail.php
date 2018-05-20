@@ -18,7 +18,7 @@
                 <div class="box_area">
                     <h2 class="h2">
                         <a class='link_cate' href="javascrip:void(0)">
-                            <b>Vị trí:</b> <span><?php echo $bds->getLocation() ?></span></a>
+                        <i class="fa fa-map-marker"></i> <b>Vị trí:</b> <span><?php echo $bds->getLocation() ?></span></a>
                     </h2>
                     <div class="wr_price">
                         <span>Giá:</span>
@@ -155,6 +155,8 @@
 
                 <div class="tienich">
                     <span id="savedNews">
+                        <i class="fa fa-check check-ok" style="display:none"></i>
+                        <i class="fa fa-times check-error" style="display:none"></i>
                         <span>Lưu tin</span>
                     </span>
                 </div>
@@ -262,3 +264,25 @@
         display: inline-block;
     }
 </style>
+
+<script>
+    $(document).ready(function() {
+        $('#savedNews').click(function() {
+            var id = <?php echo $bds->id?>;
+            $.ajax({
+                url: '<?php echo base_url('sites/saveBds') ?>',
+                type: 'POST',
+                data: {id: id},
+                success: function (returndata) {
+                    if (returndata == '1') {
+                        $('.check-ok').show();
+                        setTimeout(function(){ $('.check-ok').hide(); }, 2000);
+                    } else {
+                        $('.check-error').show();
+                        setTimeout(function(){ $('.check-error').hide(); }, 2000);
+                    }
+                }
+            });
+        });
+    });
+</script>
